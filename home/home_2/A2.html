@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+   
+        const deleteSpace = (str_) => {
+            if (str_[0]===' '){
+                str_ = str_.slice(1);
+                str_ = deleteSpace(str_);
+            }
+            if (str_[str_.length-1]===' '){
+                str_ = str_.slice(0,(str_.length-2));
+                str_ = deleteSpace(str_)
+            }
+            return str_;
+        } 
+        
+        console.log('$'+deleteSpace(prompt('введите любую строку'))+'$')
+
+
+    </script>
+</body>
+</html>
