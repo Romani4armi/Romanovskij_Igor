@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+         
+
+        const checkPolinom = str =>{
+            
+            let strCopy ='';
+            str=str.toLowerCase();
+           
+            for (let i=0; i < str.length; i++){
+                if (  str[i].charCodeAt() > 1071 && str[i].charCodeAt() < 1106  ){ //проверка только для кирилицы, для латиницы нужно будет добавить диапазон в условие
+                    if (str[i].charCodeAt()===1105){ //замена Ё на Е
+                        strCopy+='е';
+                        continue
+                    }
+                    if (str[i].charCodeAt()===1098){    // замена Ъ на Ь
+                        strCopy+='ь';
+                        continue
+                    }
+                    strCopy+=str[i];
+                }
+            }
+            
+            for (let i=0; i < strCopy.length/2;i++){
+                if ( strCopy[i]===strCopy[strCopy.length-1-i]){
+                    continue
+                } else {
+                    return 'не полиндром'
+                }
+            }
+            return 'полиндром'
+            
+        }
+       console.log(checkPolinom (prompt('vvedite frazu: '))) ;
+
+
+    </script>
+</body>
+</html>
