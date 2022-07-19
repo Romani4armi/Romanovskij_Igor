@@ -8,15 +8,10 @@
 </head>
 <body>
     <script>
-        const vowels = (a) => {
-            let k=0;
-            for ( let i=0;i<a.length;i++){
-                if (['а','е','ё','и','о','у','э','ю','я','ы'].includes(a[i].toLowerCase())) k++
-            }
-            return k
-        }
-        asdf= (a) => a.split('').map((item)=>['а','е','ё','и','о','у','э','ю','я','ы'].includes(item.toLowerCase())?item:'').join('').length 
-        console.log(asdf(prompt('введите строку')))
+      
+     const   vowels= (a) => a.split('').map((item)=>['а','е','ё','и','о','у','э','ю','я','ы'].includes(item.toLowerCase())?item:'').join('').length 
+      //проеобразовали строку в массив, методом map перебрали массив и если пришла гласная, то возвращаем эту гласную, если не гласная то пустое значение. И вся функция возвращает длинну строки из гласных 
+     console.log(vowels(prompt('введите строку')))
     </script>
 </body>
 </html>
