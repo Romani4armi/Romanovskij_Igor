@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>hello</h1>
+    <script>
+      function permutations(str) {
+      const obj = {};
+      obj[str]=true;
+      let ff = a => a>0? a*ff(a-1):1;
+      let s = ff(str.length)
+      
+    while(s>0){
+      for ( kej in obj){
+        
+        let  arr = kej.split('');
+        for( let i=0; i<arr.length;i++){
+          for (let j=1;j<arr.length;j++){
+            let n = arr[j-1];
+            arr[j-1] = arr[j];   
+            arr[j] = n;
+            console.log(arr)
+            obj[(arr.join(''))] = true
+          }
+        }
+        
+      }
+      s--
+     }
+    
+      let n = 0
+      let arr = []
+      for(kej in obj){
+        arr[n] = kej
+        n++
+      }       
+      return arr
+} 
+        
+        
+        
+      console.log(permutations('abcd').sort());
+      
+        
+    </script>
+</body>
+</html>
+
