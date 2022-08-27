@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        form{
+            border: solid 1px black;
+            padding: 10px;
+            margin: 10px;
+        }
+        textarea{
+            width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div id="create_form">
+
+    </div>
+    <script>
+        var formDef1=
+[
+  {label:'Название сайта:',kind:'longtext',name:'sitename'},
+  {label:'URL сайта:',kind:'longtext',name:'siteurl'},
+  {label:'Посетителей в сутки:',kind:'number',name:'visitors'},
+  {label:'E-mail для связи:',kind:'shorttext',name:'email'},
+  {label:'Рубрика каталога:',kind:'combo',name:'division',
+    variants:[{text:'здоровье',value:1},{text:'домашний уют',value:2},{text:'бытовая техника',value:3}]},
+  {label:'Размещение:',kind:'radio',name:'payment',
+    variants:[{text:'бесплатное',value:1},{text:'платное',value:2},{text:'VIP',value:3}]},
+  {label:'Разрешить отзывы:',kind:'check',name:'votes'},
+  {label:'Описание сайта:',kind:'memo',name:'description'},
+  {caption:'Опубликовать',kind:'submit'},
+];
+var formDef2=
+[
+  {label:'Фамилия:',kind:'longtext',name:'lastname'},
+  {label:'Имя:',kind:'longtext',name:'firstname'},
+  {label:'Отчество:',kind:'longtext',name:'secondname'},
+  {label:'Возраст:',kind:'number',name:'age'},
+  {caption:'Зарегистрироваться',kind:'submit'},
+];
+
+
+        const createForm = (mass) =>{
+            const div = document.getElementById('create_form');
+            const form = document.createElement('form');
+            div.appendChild(form);
+            form.action = 'https://fe.it-academy.by/TestForm.php';
+            form.method = 'POST';
+            for (let k of mass) {
+                k.label ? form.appendChild(document.createTextNode(k.label)):false;
+                switch (k.kind){
+                    case 'longtext': 
+                    case 'number':
+                    case 'shorttext': 
+                        const input = document.createElement('input');
+                        form.appendChild(input);
+                        input.type = k.kind;
+                        input.name = k.name;
+                        break;
+                    case 'combo': 
+                        const select = document.createElement('select');
+                        form.appendChild(select);
+                        select.name = k.name
+                        for (let i of k.variants){
+                            const option = document.createElement('option');
+                            select.appendChild(option);
+                            option.value = i.value;
+                            option.appendChild(document.createTextNode(i.text))
+                        }
+                        break;
+                    case 'radio': 
+                        for (let i of k.variants){
+                            form.appendChild(document.createTextNode(i.text))
+                            const inputRadio = document.createElement('input');
+                            form.appendChild(inputRadio);    
+                            inputRadio.type = 'radio';
+                            inputRadio.name = i.value;
+                        }
+                        break;
+                    case 'check': 
+                        const check = document.createElement('input');
+                        form.appendChild(check);
+                        check.type = 'checkbox';
+                        check.name = k.name;
+                        break;
+                    case 'memo': 
+                        form.appendChild(document.createElement('br'))
+                        const memo = document.createElement('textarea')
+                        form.appendChild(memo);
+                        memo.name = k.name;
+                        memo
+                        break;
+                    case 'submit': 
+                        const submit = document.createElement('button');
+                        form.appendChild(submit);
+                        submit.type = 'submit';
+                        submit.appendChild(document.createTextNode(k.caption));                    
+                    break;
+                }
+                form.appendChild(document.createElement('br'))
+
+            }
+
+
+        }
+        createForm(formDef1)
+        createForm(formDef2)
+    </script>
+</body>
+</html>
