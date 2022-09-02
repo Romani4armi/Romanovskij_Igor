@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="https://fe.it-academy.by/TestForm.php" id="form_1" method="post" onsubmit="submitForm(event)">
+        <div class="text">
+            Разработчики:
+            <input type="text" name="develop" >
+        </div>
+        <div class="text">
+            Название сайта:
+            <input type="text" name="namesite" >
+        </div>
+        <div class="text">
+            URL сайта
+            <input type="text" name="urlsite" >
+        </div>
+        <div class="text">
+            Дата запуска сайта:
+            <input type="date" name="datacreate" >
+        </div>
+        <div class="text">
+            Посетителей в сутки:
+            <input type="number" name="usersnumber" onkeyup="this.value = this.value.replace(/[^\d]/g,'');">
+        </div>
+        <div class="text">
+            E-mail для связи:
+            <input type="email" name="useremail" placeholder='E-mail'>
+        </div>
+        <div>
+            <span>Рубрика каталога:</span>
+            <select name="catalog" id="catalog">
+                <option value="health">здоровье</option>
+                <option value="homecomfort">домашний уют</option>
+                <option value="appliances">бытовая техника</option>
+            </select>
+        </div>
+        <div>
+            <span>Размещение:</span>
+            <input type="radio" name="placing" value="free"> бесплатное 
+            <input checked type="radio" name="placing" value="many"> платное 
+            <input type="radio" name="placing" value="vip"> VIP    
+        </div>
+        <div  class="text">
+            Разрешить отзывы:
+            <input type="checkbox" id="reviews">
+        </div>
+        <div>
+            <span>Описание сайта:</span>
+            <p>
+                <textarea  name="" id="formarea" cols="30" rows="10">
+
+                </textarea>
+            </p>
+        </div>
+        <button type="submit" >Опубликовать</button>
+    </form>
+
+    <script>
+        const inputArr = document.querySelectorAll('.text input');
+        const formarea = document.getElementById('formarea');
+       
+        const createSpan = (i) => {
+             const span = document.createElement('span')
+            const spanText = document.createTextNode('заполните это поле');
+            span.appendChild(spanText);
+            span.className = 'span_cheked'
+            i.parentElement.appendChild(span);
+            span.style.display = 'none';
+                i.addEventListener('blur', e => {
+                    if (i.value.trim() === ''){
+                        span.style.display = 'inline'
+                    } else {
+                        span.style.display = 'none'
+                    }
+                    
+                })
+        }
+        for (let i=0; i<inputArr.length;i++){
+           createSpan(inputArr[i])
+        } 
+        createSpan(formarea)
+        const validValue = i => {
+            if (i.value.trim() === ''){
+                    i.parentNode.lastElementChild.style.display = 'inline'
+                    i.focus()
+                    } 
+        }
+        const checkBox = document.getElementById('reviews');
+        checkBox.addEventListener('click', e => {
+            checkBox.checked ? checkBox.parentElement.lastElementChild.style.display = 'none' : checkBox.parentElement.lastElementChild.style.display = 'inline'  
+        })
+        const spanArea = document.createElement('span');
+        spanArea.appendChild(document.createTextNode('поле должно быть заполнено кириллицей'))
+        formarea.addEventListener('blur', e => {
+            
+           
+          if (formarea.value.split('').filter(item => (item.charCodeAt()>=1040 && item.charCodeAt()<=1103 || item.charCodeAt()===32 || item.charCodeAt()===45 || item.charCodeAt()===10)).length===formarea.value.split('').length) {
+               try {formarea.parentElement.removeChild(spanArea)}
+               catch {}
+            } else { 
+                formarea.parentNode.appendChild(spanArea);
+            } 
+          //             
+         })
+        const submitForm = (e) => {
+            validValue(formarea)     
+            if (checkBox.checked ) {
+                checkBox.parentElement.lastElementChild.style.display = 'none'
+            }       else {
+                checkBox.parentElement.lastElementChild.style.display = 'inline';
+                e.preventDefault()
+            }
+            for (let i = inputArr.length-1 ; i>=0;i-- ){
+                 validValue(inputArr[i])
+                }
+             const spanArr = document.querySelectorAll('.span_cheked');
+                for (let k of spanArr){
+                    k.style.display === 'inline' ? e.preventDefault() : true;
+                }
+                
+
+        }
+
+
+    </script>
+</body>
+</html>
