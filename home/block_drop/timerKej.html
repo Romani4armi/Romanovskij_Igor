@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #field{
+            width: 200px;
+            height: 200px;
+            position: relative;
+            border: solid 1px;
+        }
+        #block{
+            width: 10px;
+            height: 10px;
+            background-color: blue;
+            position: absolute;
+        }
+        .blocks{
+            width: 10px;
+            height: 10px;
+            background-color: blue;
+            position: absolute;
+        }
+        .egg {
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            border: solid 1px;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div> 
+        <button onclick="level()"> скорость </button>
+        <input id="level" type="number" value="1">
+    </div>
+    <div id="field"><div id="block"></div></div>
+
+    <script>
+
+        const field = document.getElementById('field');
+        const block = document.getElementById('block');
+        let nOld = 0;
+        let counter=0;
+        let x=0; 
+        let y=0;
+        let n=0;
+        let levelSpeed = 1 // скорость движения змеи
+        const blocksArr = [];
+        const randomGet = () => Math.floor(Math.random()*190);
+        const divEgg = document.createElement('div');   // яйцо для змеи
+        field.appendChild(divEgg);
+        divEgg.className = 'egg';
+        const createEgg = () => {
+           divEgg.style.top = randomGet()+'px';
+           divEgg.style.left = randomGet()+'px';
+        }
+        createEgg()
+        const level = () => {
+           levelSpeed = parseInt(document.getElementById('level').value)
+        }
+        const snakeBlockAdd = () => {
+            for (let i=0; i<10;i++){
+            const div = document.createElement('div');
+            field.appendChild(div);
+            div.id = 'divBlock'+i;
+            div.style.left = (i+1)+'px';
+            div.style.top = 0+'px';
+            div.className = 'blocks'
+            blocksArr.push(div)
+            } 
+        }
+        snakeBlockAdd()    
+        const snake = () => {
+        
+                for (let i = blocksArr.length-1 ; i > 0 ; i-- ){
+                    blocksArr[i].style.left = blocksArr[i-1].style.left;
+                    blocksArr[i].style.top = blocksArr[i-1].style.top;                    
+                }
+                
+                 blocksArr[0].style.top = block.style.top;
+                 blocksArr[0].style.left = block.style.left;
+           
+        }
+        const checkTail = () => {
+            for (let i=10; i < blocksArr.length;i++){
+                 if (blocksArr[i].offsetLeft == block.offsetLeft && blocksArr[i].offsetTop == block.offsetTop ){
+                    n=32
+                 }
+            }
+
+        }
+        // генерирует движение змеи 
+        timerFF = () => {
+            block.style.left = x +'px';
+            block.style.top = y +'px'
+            requestAnimationFrame(timerFF)        
+            window.addEventListener('keydown', e => {
+                n=e.keyCode
+                
+            })
+        // проверка на изменение  направления
+            if (nOld===37 && n===39) {nOld=37} else
+                 if (nOld===39 && n===37) {nOld=39} else
+                     if (nOld===38 && n===40) {nOld=38} else
+                        if (nOld===40 && n===38) {nOld=40} else
+                            {nOld=n}
+                
+            
+                
+              
+            switch (nOld) {
+                case    37:  x-=levelSpeed;
+                    snake()
+                    break
+                case    38:  y-=levelSpeed;
+                    snake()
+                    break
+                case    39:  x+=levelSpeed;
+                    snake()
+                    break
+                case    40:  y+=levelSpeed;
+                    snake()
+                    break
+                case    32:
+                    break
+            }
+            if (x>190)  x=0;
+            if (x<0)  x=190;
+            if (y>190)  y=0;
+            if (y<0)  y=190;
+            // проверка на нахождение яйца 
+            if (block.offsetLeft <= divEgg.offsetLeft && block.offsetLeft +10 >= divEgg.offsetLeft && block.offsetTop <= divEgg.offsetTop  && block.offsetTop +10 >= divEgg.offsetTop){
+                snakeBlockAdd()
+                createEgg()
+            };
+            if (block.offsetLeft >= divEgg.offsetLeft && block.offsetLeft  <= divEgg.offsetLeft+10 && block.offsetTop >= divEgg.offsetTop  && block.offsetTop  <= divEgg.offsetTop +10){
+                snakeBlockAdd()
+                createEgg()
+            };
+            // проверка на встречу с хвостом
+            checkTail()
+            
+        }
+        timerFF()
+
+
+        // setInterval(функция,интервал)
+        // clearInterval(таймер)
+
+    </script>
+</body>
+</html>
