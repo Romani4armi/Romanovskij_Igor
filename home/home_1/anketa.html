@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>anketa</title>
+</head>
+<body>
+    <script>
+       
+        const CheckNoLetters = a => { //проверка наличия не букв, приходит введенное слово (имя фамилия отчество)
+            let arr = a.split('') ;
+           
+            for(let i=0;i<arr.length;i++){  
+                if ( ((arr[i].charCodeAt() > 64 && arr[i].charCodeAt() < 91)) || (arr[i].charCodeAt()>96 && arr[i].charCodeAt() < 123) || (arr[i].charCodeAt() > 1039 && arr[i].charCodeAt() < 1104)  ) { //проверяет по юникоду по символьно на принодлежнось к диапозону кирилицы и латинице, запись страшная, но  все отлично работает
+                    continue
+                } else {
+                    return 'ne ok' // при присутсвии символов которые не могут содержаться в имени возвращается true значение 
+                } 
+                return NaN // если движок до сюда дошел, значит нет запрещенных символов и возвращается false значение
+            }
+        
+        }
+
+        const wordIntroduction = a => {  // приходит коментарий, (имя фамилия отчество), что нужно ввести 
+            let str = (prompt('vvedite ' + a,[a]) || ' Net ').trim() // вводит слово, убирает ошибку при нажатии отмена, удаляет случайные пробелы по краям слова, 
+            while(true) { // выход из цикла осуществляется только при правильном вводе слова
+               
+                if (str.length>1 && str.length<30 ){   //проверка на длинну слова 
+                    
+                        if (CheckNoLetters(str)) { //проверка через функцию на запрещенные символы 
+                                    str = ( prompt('vvedite ' + a + ' sostojaschoou iz bukv ',[a])  || ' Net ').trim() ;
+                                    continue
+                                } else break;
+
+                } else {
+                    str = (prompt('vvedite bolee odnogo simvola ',[a])  || ' Net').trim() 
+                    continue
+                }            
+                
+            } 
+            str = str.toLowerCase() //приведение к нижнему регистру
+            str = str[0].toUpperCase() + str.slice(1);  //приведение первой букву к верхнему регистру
+
+            return str  // вовзврат введенного правильно слова
+        }
+        
+        let ageMemory = null; // переменная для замкнутой функции 
+        const ageVerification = () => { //функция для ввода возраста 
+            let age = parseInt (prompt('vvedite svoi vozrast ',[18])) ; //перевод в NUMBER
+            while (true){
+                if (age < 0 || age > 120 || !age ) { //проверка на корректность ввода, если хоть одно ложное условие, то пришла либо не цифра, либо невозможный возраст 
+                    age = parseInt (prompt('vvedite korrektno svoi vozrast ')); //перевод NUMBER
+                    continue
+                } else {
+                    const ageFF = () => age     //сохранение адреса переменной 
+                    ageMemory = ageFF;          //для дальнейшей работы со значением
+                    
+                return age // функция возвращает возраст
+                }
+            }
+        }
+        
+        let pensionMemory = null;
+        const genderVerification = () =>{ //определение пола и соответсвенно используя возраст, определяется находится человек на пенсии либо нет
+            let pension;
+            let gender;
+            confirm('vvedite vash pol, ( mujskoj "OK" )   ( jenskij " Otmena" )') === true ? gender = 'mujskoj' : gender = 'jenskij';  // присвоение пола
+            
+            if (gender === 'mujskoj') { // определение пенсионного возраста
+                if (ageMemory()>=63) {
+                    pension = 'da'
+                } else {
+                    pension = 'net'
+                }
+            }  else {
+                if (ageMemory()>=58) {
+                    pension = 'da'
+                } else {
+                    pension = 'net'
+                }
+            }
+            const pensionFF = () => pension; // замыкание функции для сохранения значения нахождения человека на пенисии
+            pensionMemory = pensionFF;
+            return gender // возвращение пола функцией
+        }
+        // все прописано в алерте, что бы не создавать лишних переменных
+        alert(`
+        vashe FIO : ${wordIntroduction('Familiu') + ' '+wordIntroduction('Imja') + ' '+wordIntroduction('Otchestvo')}   
+        vash vozrast v  godah:  ${ageVerification()} 
+        vash vozrast v dnijah:  ${ageMemory()*365}
+        cherez 5 let vam budet: ${ageMemory()+5}  
+        vash pol: ${genderVerification()}
+        vi na pensii: ${pensionMemory()} `)
+        // замыкания функции использовались для практики работы  с ними, можно было обойтись простой переменной
+        // делайте замечания по всем мелким нюансам, что бы я мог учится делать сразу правильно, по ходу логики, синтаксису, коментариям и по тому чего я еще не понимаю) спасибо)
+    </script>
+</body>
+</html>
