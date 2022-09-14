@@ -6,16 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        a{
-            transform: translateX(2px);
-        }
     </style>
 </head>
 <body>
+    <button onclick="speed/=0.9">speed+</button>
+    <button onclick="speed*=0.9">spiid-</button>
     <script>
         let racketKey = NaN;
         let racketKey2 = NaN;
-        const speed = 2;
+        let speed = 2;
         const widthField = 600;
         const heightField =400;
         let checkForStartMach = 0;
@@ -68,6 +67,7 @@
             ball.x=0;
             ball.y=0
             checkForStartMach = 1;
+            speed =2;
         })
         // создаем ракетки
         const racket_1 = {};
@@ -173,13 +173,27 @@
         const racketCheckBall = () => {
             if (ball.y>=racket_1.y-heightField/7 && ball.y <=racket_1.y+heightField/7 && ball.x <= -265){
                 ball.x_speed*=-1
+                speed/=0.9
             };
             if (ball.y>=racket_2.y-heightField/7 && ball.y <=racket_2.y+heightField/7 && ball.x >= 265){
                 ball.x_speed*=-1
+                speed/=0.9
             }
+        }
+        //функция для робота 
+        
+        const robo = () => {
+            if (racket_1.y > ball.y) {
+                racket_1.up = -2;
+            } else { 
+
+                racket_1.up = 2
+            }
+            
         }
         // генератор движения 
         const tick = () => {
+            robo()
             ballMove()
             racketMove()
             wallCheck()
