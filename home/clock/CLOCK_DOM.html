@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            padding: 20px;
+        }
+        .div_clock{
+           
+            border-radius: 50%;
+            background-color: orange;
+            position: relative;
+        }
+        .div_mini{
+           
+            border-radius: 50%;
+            background-color: greenyellow;
+            position: absolute;
+            text-align: center;
+        }
+        .clock_hand{
+            position: absolute;
+            background-color: #000000;
+            border-radius: 5px;
+        }
+        .clock_el{
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div id="div_start"> 
+        <input type="text" id="size_clock" value="300">
+        <button onclick="createClockFF()">построить часы </button>
+    </div>
+    <div id="div_parand"></div>
+
+    <script>
+    const createClockFF = () =>{
+        document.getElementById('div_start').style.display = 'none';
+        const divParand = document.getElementById('div_parand'); //родительский блок для часов
+        const divClock = document.createElement('div'); // создаем блок - часы
+        const sizeClock = parseInt(document.getElementById('size_clock').value);//снимает значение размера часов
+        divClock.className = 'div_clock'; 
+        divClock.style.width = sizeClock + 'px';
+        divClock.style.height = sizeClock + 'px';
+        divParand.appendChild(divClock);
+        const centerOrangeX = divClock.offsetWidth/2; // нахождение центра часов 
+        const centerOrangeY = divClock.offsetHeight/2;
+        let posX = 0; //координаты для циферблата
+        let posY = 0;
+       
+       
+        
+        
+        const posFF = (i) => { // функция для нахождения координат от времени
+             posX=centerOrangeX*0.8*Math.sin(Math.PI/6*i);
+             posY=-centerOrangeX*0.8*Math.cos(Math.PI/6*i)
+        }
+        // постройка циферблата
+        for (let i=1; i<13; i++){
+            let div = document.createElement('div');
+            divClock.appendChild(div);
+            div.className = 'div_mini';
+            div.appendChild(document.createTextNode(i));
+            posFF(i)
+            div.style.left = centerOrangeX -sizeClock/20 + posX + 'px';
+            div.style.top = centerOrangeY - sizeClock/20  + posY + 'px';
+            div.style.width = sizeClock/10 + 'px';
+            div.style.height = sizeClock/10 + 'px';
+            div.style.fontSize = sizeClock/12 + 'px';
+        }
+       //  вывод электронных часов
+        const clockEl = document.createElement('div')
+        clockEl.className = 'clock_el';
+        divClock.appendChild(clockEl);
+        clockEl.style.width = sizeClock/5+'px';
+        clockEl.style.top = sizeClock/3+'px';
+        clockEl.style.left = sizeClock/2 -sizeClock/10 +'px';
+        clockEl.style.fontSize = sizeClock/18+'px';
+
+    
+        // постройка стрелок 
+        const clockHandMinute = document.createElement('div');
+        divClock.appendChild(clockHandMinute);
+        clockHandMinute.className = 'clock_hand';
+        clockHandMinute.style.left = centerOrangeX - 0.45 * sizeClock *0.2   + 'px' ;
+        clockHandMinute.style.top = centerOrangeY - 0.01 * sizeClock + 'px';
+        clockHandMinute.style.width = 0.45 * sizeClock + 'px';
+        clockHandMinute.style.height = 0.02 * sizeClock + 'px';
+        const clockHandSeconde = document.createElement('div');
+        divClock.appendChild(clockHandSeconde);
+        clockHandSeconde.className = 'clock_hand';
+        clockHandSeconde.style.left = centerOrangeX - 0.6 * sizeClock * 0.2 + 'px' ;
+        clockHandSeconde.style.top = centerOrangeY - 0.005 * sizeClock  + 'px';
+        clockHandSeconde.style.width = 0.6 * sizeClock + 'px';
+        clockHandSeconde.style.height = 0.01 * sizeClock + 'px';
+        const clockHandHous = document.createElement('div');
+        divClock.appendChild(clockHandHous);
+        clockHandHous.className = 'clock_hand';
+        clockHandHous.style.left = centerOrangeX - 0.3 * sizeClock *0.2 + 'px' ;
+        clockHandHous.style.top = centerOrangeY - 0.015 * sizeClock  + 'px';
+        clockHandHous.style.width = 0.3 * sizeClock + 'px';
+        clockHandHous.style.height = 0.03 * sizeClock + 'px';
+        // функция для перемещения стрелок 
+        const transformClockHand = () => {
+             // получение времени
+            const timeClock = (new Date()).toLocaleTimeString()
+            clockHandMinute.style.transformOrigin = ' 20% 50% 0'
+            clockHandMinute.style.transform = `rotate(${timeClock.split(':')[1]*6-90 + timeClock.split(':')[2]/10}deg)`
+            clockHandHous.style.transformOrigin = ' 20% 50% 0'
+        clockHandHous.style.transform = `rotate(${timeClock.split(':')[0]*30-90 + timeClock.split(':')[1]/2}deg)`
+            clockHandSeconde.style.transformOrigin = ' 20% 50% 0'
+            clockHandSeconde.style.transform = `rotate(${timeClock.split(':')[2]*6-90}deg)`
+            // вывод времени электронных часов
+            clockEl.innerHTML = timeClock
+        }
+        transformClockHand()
+        setInterval(transformClockHand,1000)
+        
+    }
+       
+     
+    </script>
+</body>
+</html>
