@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVGclock</title>
+    <style>
+       
+    </style>
+</head>
+<body>
+    <div id="div_start"> 
+        <input type="text" id="size_clock" value="300">
+        <button onclick="createClockFF()">построить часы </button>
+    </div>
+    <div id="div_parand"></div>
+    
+<script>
+      const SVGclock = document.createElement('svg');
+    document.body.appendChild(SVGclock)
+    SVGclock.innerHTML = ` <circle cx="300" cy="120" r="100" style="fill:red; stroke:black; stroke-width:0.1cm"/>`
+
+    const sizeClock = parseInt(document.getElementById('size_clock').value);//снимает значение размера часов
+    const createClockFF = () => {
+        document.getElementById('div_start').style.display = 'none';
+        const divParand = document.getElementById('div_parand'); //родительский блок для часов
+        const divClock = document.createElement('div'); // создаем блок - часы
+        divParand.appendChild(divClock)
+        const SVGclock = document.createElement('svg');
+        divClock.appendChild(SVGclock);
+        SVGclock.innerHTML = `  <d> <circle cx="25" cy="75" r="20" stroke="red" fill="transparent" stroke-width="5"/>
+  <ellipse cx="75" cy="75" rx="20" ry="5" stroke="red" fill="transparent" stroke-width="5"/> </d>
+        `
+
+        //const circleParande = document.createElementNS('circle');
+      //  SVGclock.appendChild(circleParande);
+        console.log(SVGclock)
+        // circleParande.setAttribute("cx",sizeClock/2 );
+        // circleParande.setAttribute("cy",sizeClock/2 );
+        // circleParande.setAttribute("rx",sizeClock/2 );
+        // circleParande.setAttribute("ry",sizeClock/2 );
+        // circleParande.setAttribute("r",sizeClock/2 );
+        // circleParande.style.fill = '#fff';
+    }
+</script>
+</body>
+</html>

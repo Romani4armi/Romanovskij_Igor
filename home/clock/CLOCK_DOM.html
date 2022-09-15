@@ -12,13 +12,13 @@
         .div_clock{
            
             border-radius: 50%;
-            background-color: orange;
+            background-color: #ffee00;
             position: relative;
         }
         .div_mini{
            
             border-radius: 50%;
-            background-color: greenyellow;
+            background-color: rgb(109, 159, 0);
             position: absolute;
             text-align: center;
         }
@@ -53,14 +53,10 @@
         const centerOrangeY = divClock.offsetHeight/2;
         let posX = 0; //координаты для циферблата
         let posY = 0;
-       
-       
-        
-        
         const posFF = (i) => { // функция для нахождения координат от времени
              posX=centerOrangeX*0.8*Math.sin(Math.PI/6*i);
              posY=-centerOrangeX*0.8*Math.cos(Math.PI/6*i)
-        }
+        };
         // постройка циферблата
         for (let i=1; i<13; i++){
             let div = document.createElement('div');
@@ -73,7 +69,7 @@
             div.style.width = sizeClock/10 + 'px';
             div.style.height = sizeClock/10 + 'px';
             div.style.fontSize = sizeClock/12 + 'px';
-        }
+        };
        //  вывод электронных часов
         const clockEl = document.createElement('div')
         clockEl.className = 'clock_el';
@@ -110,17 +106,18 @@
         const transformClockHand = () => {
              // получение времени
             const timeClock = (new Date()).toLocaleTimeString()
-            clockHandMinute.style.transformOrigin = ' 20% 50% 0'
-            clockHandMinute.style.transform = `rotate(${timeClock.split(':')[1]*6-90 + timeClock.split(':')[2]/10}deg)`
-            clockHandHous.style.transformOrigin = ' 20% 50% 0'
-        clockHandHous.style.transform = `rotate(${timeClock.split(':')[0]*30-90 + timeClock.split(':')[1]/2}deg)`
-            clockHandSeconde.style.transformOrigin = ' 20% 50% 0'
-            clockHandSeconde.style.transform = `rotate(${timeClock.split(':')[2]*6-90}deg)`
+            clockHandMinute.style.transformOrigin = ' 20% 50% 0';
+            clockHandMinute.style.transform = `rotate(${timeClock.split(':')[1]*6-90 + timeClock.split(':')[2]/10}deg)`;
+            clockHandHous.style.transformOrigin = ' 20% 50% 0';
+             clockHandHous.style.transform = `rotate(${timeClock.split(':')[0]*30-90 + timeClock.split(':')[1]/2}deg)`;
+            clockHandSeconde.style.transformOrigin = ' 20% 50% 0';
+            clockHandSeconde.style.transform = `rotate(${timeClock.split(':')[2]*6-90}deg)`;
             // вывод времени электронных часов
-            clockEl.innerHTML = timeClock
-        }
-        transformClockHand()
-        setInterval(transformClockHand,1000)
+            clockEl.innerHTML = timeClock;
+            console.log(timeClock);
+        };
+        transformClockHand();
+        setInterval(transformClockHand,1000);
         
     }
        

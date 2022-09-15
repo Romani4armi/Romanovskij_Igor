@@ -1,12 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        #box {
+            /*element*/
+            height: 170px;
+            width: 200px;
+            background-color: rgb(246, 191, 246);
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        #border {
+            /*parent*/
+            height: 800px;
+            width: 800px;
+            border: 3px solid rgb(186, 106, 180);
+            position: relative;
+            margin: -4px;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>hello</h1>
+    <div id="border">
+        <div id="box"></div>
+    </div>
+    <button onclick="ff(this)">нажми кнопку</button>
 </body>
+<script>
+    ff = n =>{
+        n.style.color = 'red'
+    }
+    const box = document.getElementById('box');
+    const border = document.getElementById('border');
+    let leftCoord = 0;
+    let topCoord = 0;
+    window.addEventListener('keydown', (e) => {
+        switch (e.keyCode) {
+            case 39: leftCoord += 10; break; //right
+            case 40: topCoord += 10; break; //vniz
+            case 37: leftCoord -= 10; break; //left
+            case 38: topCoord -= 10; break; //vverh
+        }
+
+
+        if ( leftCoord >=  border.offsetWidth-box.offsetWidth-6  ) {
+                leftCoord =  border.offsetWidth-box.offsetWidth-6 //right
+        } 
+        if (topCoord >= border.offsetHeight-box.offsetHeight-6) {
+               topCoord = border.offsetHeight-box.offsetHeight-6
+        }
+        if (leftCoord <= 0){
+                 leftCoord = 0;
+        }
+        if (topCoord <= 0){  
+            topCoord = 0; 
+        }
+      
+        box.style.left = leftCoord + 'px';
+        box.style.top = topCoord + 'px';
+    })
+
+
+
+</script>
+
 </html>
