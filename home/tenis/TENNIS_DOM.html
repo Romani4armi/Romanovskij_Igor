@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    </style>
+</head>
+<body>
+    <button onclick="speed/=0.9">speed+</button>
+    <button onclick="speed*=0.9">spiid-</button>
+    <script>
+        let racketKey = NaN;
+        let racketKey2 = NaN;
+        let speed = 2;
+        const widthField = 600;
+        const heightField =400;
+        let checkForStartMach = 0;
+        // создаем блок для ввода счета 
+        let matchScoreX = 0;
+        let matchScoreY = 0;
+        const matchScoreDiv = document.createElement('div')
+        document.body.appendChild(matchScoreDiv);
+        matchScoreDiv.style.border = 'solid 1px';
+        matchScoreDiv.style.width = '100px';
+        matchScoreDiv.style.padding = '10px';
+        matchScoreDiv.style.textAlign = 'center'
+        const setMatchScore =()=>{
+
+            matchScoreDiv.innerHTML = `${matchScoreX} : ${matchScoreY}`
+            checkForStartMach = 0;
+        }
+        setMatchScore()
+        const buttonStart = document.createElement('button');
+        document.body.appendChild(buttonStart);
+        buttonStart.appendChild(document.createTextNode('старт'))
+       
+        // добавляем поле для тениса
+        const field = document.createElement('div');
+        document.body.appendChild(field);
+        field.style.width = widthField + 'px';
+        field.style.height = heightField + 'px';
+        field.style.border = 'solid 1px';
+        field.style.backgroundColor = 'blue';
+        field.style.position = 'relative';
+         // функция для генарации направления мяча 
+         const randomGet = () => (Math.random()-0.45)*2;
+        // добавляем мяч
+        const ball = {};
+        ball.div = document.createElement('div');
+        field.appendChild(ball.div);
+        ball.div.style.width = heightField/8 + 'px';
+        ball.div.style.height = heightField/8 +'px';
+        ball.div.style.borderRadius = '50%';
+        ball.div.style.backgroundColor = 'red';
+        ball.div.style.position = 'absolute';
+        ball.div.style.top = heightField/2-heightField/16+'px';
+        ball.div.style.left = widthField/2-heightField/16+'px';
+        
+         // по клику запускаем мяч
+        buttonStart.addEventListener('click',event => {
+             //создаем объет движения для мяча
+            randomGet()>0?ball.x_speed = 1 : ball.x_speed = -1;
+            ball.y_speed = randomGet();
+            ball.x=0;
+            ball.y=0
+            checkForStartMach = 1;
+            speed =2;
+        })
+        // создаем ракетки
+        const racket_1 = {};
+        racket_1.div = document.createElement('div');
+        field.appendChild(racket_1.div);
+        const racket_2 = {};
+        racket_2.div = document.createElement('div');
+        field.appendChild(racket_2.div);
+        racket_1.div.style.width = widthField/60+'px';
+        racket_2.div.style.width = widthField/60+'px';
+        racket_1.div.style.height =  heightField/4+'px';
+        racket_2.div.style.height =  heightField/4+'px';
+        racket_1.div.style.position = 'absolute';
+        racket_2.div.style.position = 'absolute';
+        racket_1.div.style.backgroundColor = 'yellow';
+        racket_2.div.style.backgroundColor = 'yellow';
+        racket_1.div.style.top = heightField/2-heightField/8+'px';
+        racket_2.div.style.left = widthField - widthField/60+'px';
+        racket_2.div.style.top = heightField/2-heightField/8+'px';
+        racket_1.y=0;
+        racket_2.y=0;
+        racket_1.up=0;
+        racket_2.up=0;
+
+        //  получаем значение с кнопок для движения ракеток
+        window.addEventListener('keydown', e => {
+            racketKey = e.keyCode;
+            switch (racketKey) {
+                case 40: racket_2.up = 2; 
+                break;
+                case 38: racket_2.up = -2;
+                break;
+                case 90: racket_1.up = 2;
+                break;
+                case 65: racket_1.up = -2;
+                break;
+
+            }
+        })
+        window.addEventListener('keyup', e => {
+            racketKey = e.keyCode;
+            switch (racketKey) {
+                case 40: racket_2.up = 0; 
+                break;
+                case 38: racket_2.up = 0;
+                break;
+                case 90: racket_1.up = 0;
+                break;
+                case 65: racket_1.up = 0;
+                break;
+
+            }
+        })
+        
+        // задаем движение ракеток
+       const racketMove = () => {
+            if(!(racket_2.y+racket_2.up >= heightField/2 - heightField/8 ||racket_2.y+racket_2.up <= -heightField/2 + heightField/8 )){
+                racket_2.y+=racket_2.up
+            };
+            if(!(racket_1.y+racket_1.up >= heightField/2 - heightField/8 ||racket_1.y+racket_1.up <= -heightField/2 + heightField/8 )){
+                racket_1.y+=racket_1.up
+            }; 
+                racket_2.div.style.transform = `translateY(${racket_2.y}px)`
+                racket_1.div.style.transform = `translateY(${racket_1.y}px)`
+       }
+        
+        // функция для движения мяча 
+        const ballMove = () => {
+            ball.div.style.transform = `translate(${ball.x+=speed*(ball.x_speed)}px, ${ball.y+=speed*(ball.y_speed)}px)`;
+        }
+        // функция для подсчета очков
+        const matchScore = () => {
+            if (ball.x<0){
+               
+
+               if (checkForStartMach === 1) { 
+                matchScoreX++
+                setMatchScore()
+                checkForStartMach = 0
+               }
+                
+            } else {
+               
+                if (checkForStartMach === 1) { 
+                    matchScoreY++
+                setMatchScore()
+                checkForStartMach = 0
+               }
+            }
+        }
+        // проверка на столкновение со стеной и изменение направления движения
+        const wallCheck = () => {
+            if (ball.x <= -widthField/2+heightField/16 || ball.x >= widthField/2-heightField/16) {
+                ball.x_speed= 0;
+                ball.y_speed = 0;
+                matchScore()
+            };  
+            if (ball.y <= -heightField/2+heightField/16  || ball.y >= heightField/2-heightField/16) {
+                ball.y_speed*=- 1;
+            }
+        }
+        // проверка на столкновение мяча с ракеткой
+        const racketCheckBall = () => {
+            if (ball.y>=racket_1.y-heightField/7 && ball.y <=racket_1.y+heightField/7 && ball.x <= -265){
+                ball.x_speed*=-1
+                speed/=0.9
+            };
+            if (ball.y>=racket_2.y-heightField/7 && ball.y <=racket_2.y+heightField/7 && ball.x >= 265){
+                ball.x_speed*=-1
+                speed/=0.9
+            }
+        }
+        //функция для робота 
+        
+        const robo = () => {
+            if (racket_1.y > ball.y) {
+                racket_1.up = -2;
+            } else { 
+
+                racket_1.up = 2
+            }
+            
+        }
+        // генератор движения 
+        const tick = () => {
+            robo()
+            ballMove()
+            racketMove()
+            wallCheck()
+            racketCheckBall()
+            requestAnimationFrame(tick)
+        }
+        tick()
+
+       
+
+
+    </script>
+</body>
+</html>
