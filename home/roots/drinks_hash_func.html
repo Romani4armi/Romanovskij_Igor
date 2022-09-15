@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            padding: 5px;
+        }
+        button{
+            margin: 5px;
+        }
+        input {
+            margin: 5px;
+        }
+       
+        .alcoprice{
+            width: 300px;
+           
+            border: solid 1px black;
+            margin: 10px;
+            padding: 10px;
+        }
+        
+        #addValueDrink{
+            margin: 10px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <button id="add" onclick="openFormAdd()">Добавить коктейль </button> 
+    <button id="get" onclick="openGetDrink()">получить рецепт</button> 
+    <button id="deleteBut" onclick="openDeleteDrink()">удалить коктейль</button> 
+    <button id="get" onclick="getDrinkAlco()">получить меню коктейлей </button> 
+    <br>
+    <div id="addValueDrink" style="display: none;">
+        введите название коктейля <br>
+        <input type="text" id="key" placeholder="napitok"><br>
+        содержит ли коктейль алкоголь? <br>
+        да       <input type="checkbox" id="alco"> <br>
+        рецепт<br>
+        <textarea  id="value" placeholder="строка"> </textarea> <br>
+        <button id="addDrinksAlco" onclick=" createDrink ()"> Добавить коктейль</button>
+        
+    </div>
+    <div id="getValueAlco" style="display: none;">
+        введите название коктейля <br>
+        <input type="text" id="getDrink" placeholder="get napitok"> <br>
+        <button onclick="getDrink()">получить рецепт коктейля</button>
+    </div>
+    <div id="DeletetValueAlco" style="display: none ;">
+        введите название коктейля для того что бы его удалить <br>
+        <input type="text" id="deleteDrink" placeholder="delete napitok"> <br>
+        <button  onclick="deleteDrink()"> удалить</button>
+
+    </div>
+   
+
+    <div id="alcoSp"></div>
+        
+    <script>
+
+        function HashStorageFunc () {
+
+            const getDrinks = {
+                'margarita': {
+                    'alco' : true,
+                    'recipe': 'tecila,liker,lime'
+                }
+               
+            } ;
+
+            this.addValue = function (key,value) {
+                getDrinks[key] = value
+            }
+            this.getValue = function (key) {
+                if (key in getDrinks ) {
+                    return getDrinks[key]
+                } else {
+                    return 'нет такого напитка'
+                }
+                    
+                        
+                
+            }
+            this.deleteValue = function (key) {
+                delete getDrinks[key] 
+            }
+            this.getKeys = function () {
+                let s='';
+                for (let key in getDrinks ) {
+                    s+= '<li>' + key +'</li> '
+                }
+                return s
+            }
+
+        }
+
+       const drinkStorage = new HashStorageFunc() 
+        
+       
+        function openFormAdd () {
+            document.getElementById('add').style.display='none'
+            document.getElementById('addValueDrink').style.display = 'block';
+            document.getElementById('alcoSp').innerHTML= `<div class="alcoprice">
+                           
+                        </div>`
+        }
+        function openGetDrink () {
+            document.getElementById('get').style.display='none'
+            document.getElementById('getValueAlco').style = 'block';
+            document.getElementById('alcoSp').innerHTML= `<div class="alcoprice">
+                           
+                        </div>`
+        } 
+        function openDeleteDrink () {
+            document.getElementById('DeletetValueAlco').style.display='block';
+            document.getElementById('deleteBut').style.display='none'; 
+            document.getElementById('alcoSp').innerHTML= `<div class="alcoprice">
+                           
+                        </div>`
+        }
+        function createDrink () { //создает новый напиток
+            document.getElementById('addValueDrink').style.display = 'none'
+            document.getElementById('add').style.display='inline'
+            add = document.getElementById('key').value;
+            keyValue = document.getElementById('value').value;
+            checkBox = document.getElementById('alco').checked;
+            drinkStorage.addValue(add,{'alco':checkBox,'recipe':keyValue})
+
+        }
+
+        function getDrink () { //получает напиток по названию
+            
+            alcoSp = document.getElementById('alcoSp')
+            getDr = document.getElementById('getDrink').value
+            const x = (drinkStorage.getValue(getDr)) 
+            if ('нет такого напитка'===x) { alcoSp.innerHTML = `
+                        <div class="alcoprice">
+                           такого напитка нет
+                        </div>`
+            } else {
+                alcoSp.innerHTML = `
+                        <div class="alcoprice">
+                            напиток:  ${getDr} <br>
+                            алкоголь: ${x.alco?'да':'нет'}  <br>
+                            рецепт: ${x.recipe}
+                        </div>`
+                 document.getElementById('getValueAlco').style.display = 'none';
+                 document.getElementById('get').style.display='inline'
+            }
+           
+                    
+        }
+
+        function deleteDrink () { // удаляет напиток по названию
+            const deleteDr = document.getElementById('deleteDrink').value;
+            const alcoSp = document.getElementById('alcoSp');
+            drinkStorage.deleteValue(deleteDr)
+            alcoSp.innerHTML=`
+            <div class="alcoprice">
+                    напиток:  ${deleteDr}  удален из меню
+                </div>
+            `
+            document.getElementById('DeletetValueAlco').style.display='none';
+            document.getElementById('deleteBut').style.display='inline';
+        }
+
+        function getDrinkAlco () { //получает список напитков в меню
+
+           document.getElementById('alcoSp').innerHTML=  `
+            <div class="alcoprice">
+                списиок напитков в меню:
+
+                ${drinkStorage.getKeys()}
+
+                </div>
+            `
+           
+        }
+
+
+
+    </script>
+</body>
+</html>

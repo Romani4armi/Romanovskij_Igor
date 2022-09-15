@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        button{
+            margin: 10px;
+         
+        }
+        .prints {
+            margin: 15px;
+            border: 1px solid black;
+            width: 50%;
+            min-height: 20px;
+            padding: 10px;
+        }
+        #li{
+            width: 35px;
+            margin-right: 20px;
+            
+        }
+        #text{
+            margin-left: 20px;
+            width: 50%;
+        }
+       
+      
+    </style>
+</head>
+<body>
+    
+    <button onclick="createTeg('h1')">H1</button>
+    <button onclick="createTeg('h2')">H2</button>
+    <button onclick="createTeg('h3')">H3</button>
+    <button onclick="createTeg('h4')">H4</button>
+    <button onclick="createTeg('h5')">H5</button>
+    <button onclick="createTeg('h6')">H6</button>
+    <br>
+    <button onclick="createTeg('p')">P</button>
+    <button onclick="createLi()">Ul</button>
+
+    <button id="li" onclick="createLiTeg('li')" style="display: none;">Li+</button>
+    <br>
+    <input id="text" type="text" value="введите текст для тега">
+    <div class="prints"> 
+    
+
+    </div>
+
+    
+    <script>
+        let tegUl=null;
+        const div = document.querySelector('.prints')
+        const createLi = () =>{
+            const li = document.getElementById('li');
+            if (li.style.display === 'none'){
+                li.style.display = 'inline'
+                tegUl = document.createElement('ul')
+                div.appendChild(tegUl)
+               
+            } else {
+                li.style.display = 'none';
+                tegUl = null;
+            }
+            
+        }
+        const createLiTeg = () => {
+           
+            const tegLi = document.createElement('li')
+            const valueInput = document.getElementById('text').value
+            const text = document.createTextNode(valueInput)
+            tegLi.appendChild(text)
+            tegUl.appendChild(tegLi)
+
+        }
+        const createTeg = n => {
+            const teg = document.createElement(n)
+            const valueInput = document.getElementById('text').value
+            const text = document.createTextNode(valueInput)
+            
+            teg.appendChild(text)
+            div.appendChild(teg)
+        }
+       
+    </script>
+</body>
+</html>

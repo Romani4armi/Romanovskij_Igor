@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+        const s = prompt('введите строку');
+        const vowelsForEach = s =>{
+            let k=0;
+            s.split('').forEach(i=>(i.toLowerCase() in {'а':'','о':'','у':'','ю':'','и':'','ы':'','е':'','ё':'','э':'','я':''})?k++:false)
+            return k
+        }
+        const vowelsFilter = s => s.split('').filter(i=>i.toLowerCase() in {'а':'','о':'','у':'','ю':'','и':'','ы':'','е':'','ё':'','э':'','я':''}).length
+        const vowelsReduce = s => s.split('').reduce((acc,i)=>{
+            i.toLowerCase() in {'а':'','о':'','у':'','ю':'','и':'','ы':'','е':'','ё':'','э':'','я':''}?acc++:false
+            return acc
+        },0 )
+        console.log('vowelsForEach: ' , vowelsForEach(s),'\n','filter:', vowelsFilter(s),'\n','reduce:', vowelsReduce(s) )
+        
+    </script>
+</body>
+</html>
