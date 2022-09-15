@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+        
+        const treeSum =(arr) =>{ //объявление функции
+            let sum=0;          //создание переменной для запоминания суммы чисел
+            for (let i=0; i<arr.length;i++){ 
+                if ((typeof arr[i])==='object') {           //проверка элемента массива на вложенный массив
+                    sum+=treeSum(arr[i])                   // если внутри массив, то добавляем в сумму сумму масива, которая будет считаться рекурсивной функцией 
+                } else {
+                    sum+=arr[i] // если элемент массива число, то просто считается сумма
+                }                
+            }
+            return sum 
+        }
+
+
+        console.log(treeSum([5,7,[4,[2],8,[1,3],2],[9,[]],1,8])) 
+
+    </script>
+</body>
+</html>
