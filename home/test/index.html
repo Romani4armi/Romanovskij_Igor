@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #sky{
+            position: relative;
+            width: 95vw;
+            height: 95vh;
+            border: solid 1px;
+            background-color: black;
+            overflow: hidden;
+        }
+        .star{
+            position: absolute;
+            border-radius: 50%;
+            background-color: #fff;
+        }
+        .stoune{
+            border-radius: 50%;
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            background-color: rgb(110, 110, 110);
+        }
+        #shuttle{
+            position: absolute;
+            width: 200px;
+            height: 250px;
+            background-color: #ff0000;
+            border-radius: 20%;
+        }
+    </style>
+</head>
+<body>
+    <div id="sky">
+        <!-- <div id="shuttle"></div> -->
+    </div>
+    <script>
+        const stounArr = [];
+        const sky = document.getElementById('sky');
+        const widthSky = sky.offsetWidth;
+        const heightSky = sky.offsetHeight;
+        const randomFF = () => (Math.random());
+                for (let i=0;i<widthSky*2;i++){
+                    const block = document.createElement('div');
+                    block.className = 'star';
+                    sky.appendChild(block);
+                    block.style.top = randomFF()*heightSky + 'px';
+                    block.style.left = randomFF()*widthSky + 'px';
+                    block.style.width = randomFF()*1.5 + 'px';
+                    block.style.height=block.style.width;
+                }
+                for (let i=0; i<7;i++){
+                    const stouneHash = {};
+                    stouneHash.div = document.createElement('div');
+                    sky.appendChild(stouneHash.div);
+                    stouneHash.div.className = 'stoune';
+                    stouneHash.div.style.left = Math.floor(Math.random()*widthSky*0.9)+'px';
+                    stouneHash.top = Math.floor(Math.random()*heightSky*2)
+                    stouneHash.x = 0;
+                    stouneHash.y = -stouneHash.top;
+                    stouneHash.div.style.transform = ` translateY(${stouneHash.y}px)`
+                    stouneHash.speedX = 0;
+                    stouneHash.speedY = 10;
+                    stounArr.push(stouneHash)
+                }
+            // const shuttle = {};
+            // shuttle.div = document.getElementById('shuttle');
+            // shuttle.div.style.left = widthSky/2-shuttle.div.offsetWidth/2+'px';
+
+            // shuttle.div.style.top = heightSky/2+shuttle.div.offsetHeight*2+'px  '
+            // shuttle.x = 0;
+            // shuttle.y = 0;
+            // shuttle.speedX = 0;
+            // shuttle.speedY = 0;
+
+
+            window.addEventListener('keydown', e => {
+                
+            switch (e.keyCode) {
+                case 40: shuttle.speedY = 10; 
+                break;
+                case 38: shuttle.speedY = -10;
+                break;
+                case 39: shuttle.speedX = 10;
+                break;
+                case 37: shuttle.speedX = -10;
+                break;
+
+            }
+        })
+        window.addEventListener('keyup', e => {
+             
+            switch (e.keyCode) {
+                case 40: shuttle.speedY = 0; 
+                break;
+                case 38: shuttle.speedY = 0;
+                break;
+                case 39: shuttle.speedX = 0;
+                break;
+                case 37: shuttle.speedX = 0;
+                break;
+
+            }
+        })
+        const moveShuttle = () => {
+            
+            shuttle.div.style.transform = `translateZ(0) translateX(${shuttle.x+=shuttle.speedX}px) translateY(${shuttle.y+=shuttle.speedY}px)`
+                        
+        }
+        // const generateStoune = () => {
+        //     for (let k of stounArr){
+        //         k.div.style.transform = `translateZ(0) translateY(${k.y+=k.speedY}px)`
+        //         if (k.y >= heightSky) {
+                   
+        //             k.y=-k.top
+
+
+        //             setTimeout(()=>{
+        //                 k.div.style.transform = `translateZ(0) translateX(${Math.floor(Math.random()*widthSky)}px) translateY(${Math.floor(Math.random()*heightSky)}px)`
+                        
+        //             },10)
+                    
+        //         };
+                    
+        //     }
+            
+        // }
+
+        const tick = () => {
+            
+            // moveShuttle()
+            // generateStoune()
+            requestAnimationFrame(tick)
+            
+        }
+        tick()
+    </script>
+</body>
+</html>
