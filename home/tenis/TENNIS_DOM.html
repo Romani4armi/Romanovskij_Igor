@@ -9,8 +9,7 @@
     </style>
 </head>
 <body>
-    <button onclick="speed/=0.9">speed+</button>
-    <button onclick="speed*=0.9">spiid-</button>
+   
     <script>
         let racketKey = NaN;
         let racketKey2 = NaN;
@@ -141,16 +140,12 @@
         // функция для подсчета очков
         const matchScore = () => {
             if (ball.x<0){
-               
-
                if (checkForStartMach === 1) { 
                 matchScoreX++
                 setMatchScore()
                 checkForStartMach = 0
                }
-                
             } else {
-               
                 if (checkForStartMach === 1) { 
                     matchScoreY++
                 setMatchScore()
@@ -185,10 +180,14 @@
         const robo = () => {
             if (racket_1.y > ball.y) {
                 racket_1.up = -2;
-            } else { 
-
-                racket_1.up = 2
+            }   
+            if (racket_1.y = ball.y){
+                    racket_1.up = 0
+            } 
+            if (racket_1.y < ball.y){
+                     racket_1.up = 2
             }
+            
             
         }
         // генератор движения 
