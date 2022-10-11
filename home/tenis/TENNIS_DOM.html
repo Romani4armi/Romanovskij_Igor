@@ -192,12 +192,13 @@
         }
         // генератор движения 
         const tick = () => {
-            robo()
+            
             ballMove()
             racketMove()
             wallCheck()
             racketCheckBall()
             requestAnimationFrame(tick)
+            robo()
         }
         tick()
 
