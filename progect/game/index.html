@@ -8,7 +8,11 @@
     <title>Document</title>
 </head>
 <body>
-
+<div class="level_complite_star">
+    <div id="star1" class="star_level"></div>
+    <div id="star2" class="star_level"></div>
+    <div id="star3" class="star_level"></div>
+</div>
 <div id='app'>
       
     </div>
@@ -70,17 +74,23 @@
       </div>
     `
     const startGame = () => `
-       
-        <button class="btnCanvas" onclick='switchToStartScreePage()'>Назад</button>
-        <button class="btnCanvas" onclick="document.querySelector('canvas').requestFullscreen()">развернуть</button>
-        <br>
+ 
         <div class="levels"> 
-              <button onclick="Example.slingshot()">1 level</button>
+              <button class="btn_level" onclick="startLevel(1)">1 level</button>
+              <button  class="btn_level" onclick="startLevel(2)">2 level</button>
+              <button class="btn_level"  onclick="startLevel(3)">3 level</button>
+              <button  class="btn_level" onclick="startLevel(4)">4 level</button>
+              <button class="btn_level"  onclick="startLevel(5)">5 level</button>
         </div>
-        <div id="game" style="display:none"></div>
+             
+        <br>
+        <button class="btnCanvas" onclick='switchToStartScreePage()'>Назад</button>
+        
     `
     const gameFF = () => `
-      
+        <button class="btnCanvas" onclick='switchToStartPage()'>Назад</button>
+        <button class="btnCanvas" onclick="document.querySelector('canvas').requestFullscreen()">развернуть</button>
+        <div id="game" style="display:none"></div>
     `
     const soundPage = () => `
       <div class="conteiner">
@@ -123,7 +133,11 @@
         break;  
       case '#sound-page':
         pageHTML+=soundPage()
-     
+        break;
+      case '#gameFF':
+        pageHTML+=gameFF()
+        break;
+
     }
     document.getElementById('app').innerHTML=pageHTML ;
 
@@ -152,7 +166,9 @@
   const switchToSoundPage = () => {
     switchToState( { pagename: 'sound-page' } )
   }
-  
+  const switchToGamePage = () => {
+    switchToState( { pagename:'gameFF' } )
+  }
 
   switchToStateFromURLHash();
  
@@ -178,7 +194,31 @@
     
   }
   const soundCheck = document.getElementById('soundCheck')
-
-</script>
+  const startLevel = (a) => {
+    switchToGamePage();
+    switch (a) {
+      case 1 : setTimeout(()=>{Example.slingshot()},10)
+        break;
+      case 2 :  console.log('создай уровень')
+        break;
+      case 3 : console.log('создай уровень')
+        break;
+      case 4 : console.log('создай уровень')
+        break;
+      case 5 : console.log('создай уровень')
+        break;
+    }
+    
+    
+  }
+  const levelComplite = () =>{
+        const game = document.getElementById('game');
+        const addComplite = document.createElement('div');
+        game.appendChild(addComplite);
+        addComplite.style.width = '50%';
+        addComplite.style.height = '30vw';
+        addComplite.className = 'level_complite'
+  }
+ </script>
 </body>
 </html>

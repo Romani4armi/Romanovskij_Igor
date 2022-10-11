@@ -30,8 +30,8 @@ Example.slingshot = function() {
             wireframes : false,
             background: 'img/background_1.png',
             width: 910,
-            height: 600,
-            showAngleIndicator: true    ,
+            height: 550,
+            showAngleIndicator: false    ,
             render: { fillStyle: '#030303' } 
         }
     });
@@ -76,7 +76,7 @@ Example.slingshot = function() {
                visible : false
             }
         });
-        console.log(elastic)
+     
     const sling1 = Bodies.rectangle(170,390,10,100,{
             isStatic : true,
             isSensor : true,
@@ -101,36 +101,47 @@ Example.slingshot = function() {
         }
 
 })
+const gorizBlock = {
+    sprite: {
+        texture: "img/beam.png",
+        xScale: 1.4,
+        }
+}
+const vertBlock = {
+    sprite: {
+        texture: "img/column.png",
+        xScale: 1,
+        yScale: 1.2
+        }
+}
    const block1 = Bodies.rectangle(600,400,20,100,{
-    render : {
-        fillStyle: 'brown'
-    }
+    render : vertBlock
    })
    const block2 = Bodies.rectangle(680,400,20,100,{
-    render : {
-        fillStyle: 'brown'
-    }
+    render : vertBlock
    })
    const block3 = Bodies.rectangle(640,350,110,20,{
-    render : {
-        fillStyle: 'brown'
-    }
+    render : gorizBlock
    })
    const block4 = Bodies.rectangle(600,300,20,100,{
-    render : {
-        fillStyle: 'brown'
-    }
+    render : vertBlock
    })
    const block5 = Bodies.rectangle(680,300,20,100,{
-    render : {
-        fillStyle: 'brown'
-    }
+    render :vertBlock
    })
    const block6 = Bodies.rectangle(640,250,110,20,{
-    render : {
-        fillStyle: 'brown'
-    }
+    render : gorizBlock
    })
+   const block7 = Bodies.rectangle(600,180,20,100,{
+    render : vertBlock
+   })
+   const block8 = Bodies.rectangle(680,180,20,100,{
+    render : vertBlock
+   })
+   const block9 = Bodies.rectangle(640,130,110,20,{
+    render : gorizBlock
+   })
+
    const pig1 = Bodies.circle(640,320,25,{ 
             density: 0.001 ,
             render: {
@@ -143,7 +154,7 @@ Example.slingshot = function() {
             }
         })
        
-   const pig2 = Bodies.circle(640,440,25,{ 
+   const pig2 = Bodies.circle(640,220,25,{ 
             density: 0.001 ,
             render: {
                 sprite: {
@@ -156,9 +167,10 @@ Example.slingshot = function() {
         })
         pig1.pig = 'pig1';
         pig2.pig = 'pig2';
-    // анимированное удаление свиньи
-    const deadPig = (pig) => {
 
+        // анимированное удаление свиньи
+    let counterPig = 2;
+    const deadPig = (pig) => {
        pig.render.sprite.texture = "img/boom.png"
         const tick = () =>{
             pig.render.sprite.xScale*=0.9
@@ -167,31 +179,39 @@ Example.slingshot = function() {
                 setTimeout(tick, 100)
                 
             } else {
-                Composite.remove(engine.world, [pig])
+                Composite.remove(engine.world, [pig]);
+                counterPig--
+                if (!counterPig) {
+                    levelComplite()
+                }
             }
              
         }
 
         tick()
     }   
-
-    let soundBoom = new Audio;
-    soundBoom.src = 'sound/pig.mp3';
+   let  arr = [ground, block1,block2,block3,block4,block5,block6,pig1,pig2,sling1, rock, elastic,sling2];
+    arr.push(block7);
+    arr.push(block8,block9)
+    let soundBoom1 = new Audio;
+    soundBoom1.src = 'sound/pig.mp3';
+    let soundBoom2 = new Audio;
+    soundBoom2.src = 'sound/pig.mp3';
    
-    Composite.add(engine.world, [ground, block1,block2,block3,block4,block5,block6,pig1,pig2,sling1, rock, elastic,sling2]);
+    Composite.add(engine.world, arr );
     
     Events.on(engine, 'collisionStart', (event) => {
             arr = event.source.world.bodies
        for(let i=0; i < arr.length; i++){
         if (arr[i].pig){
             if (arr[i].pig === 'pig1' && (arr[i].positionImpulse.x!= 0 || arr[i].positionImpulse.y!= 0)){
-              
-                soundBoom.play()
+                arr[i].pig=''
+                soundBoom1.play()
                 deadPig(pig1)
             }
             if (arr[i].pig === 'pig2' && (arr[i].positionImpulse.x!= 0 || arr[i].positionImpulse.y!= 0)){
-               
-                soundBoom.play()
+                arr[i].pig=''
+                soundBoom2.play()
                 deadPig(pig2)
             }
         }
@@ -246,9 +266,6 @@ Example.slingshot = function() {
         
         let distX = Math.abs(rock.position.x - flyPos.x);
         let distY = Math.abs(rock.position.y - flyPos.y)
-        // if (distX>10 && distY >10){ // звук рогатки
-        //     soundBoom.play()
-        // }
         if (isFired && distX<20 && distY < 20) {
             
             rock = Bodies.circle(170, 350,  20, rockOptions);
@@ -256,17 +273,20 @@ Example.slingshot = function() {
             
             elastic.bodyB = rock;
             isFired = false
-           // setTimeout(Composite.remove(engine.world, [rock]),3000)
+
         }
     });
 
     // добавляем рамку к уровню
     document.querySelector('canvas').className = 'canvasClass'
     s = true
-    // fit the render viewport to the scene
+    //подгонка видового экрана рендеринга к сцене
+    Render.lookAt(render, {
+        min: { x: 0, y: 0 },
+        max: { x: 800, y: 600 }
+    });
     
-    // context for MatterTools.Demo
-    // подгонка под ширину экрана
+    
 
 };
 
