@@ -164,14 +164,42 @@ li {
     top: 10%;
     left: 25%;
     border-radius: 2vw;
+    animation-duration: 3s;
+    animation-name: opacity;
+  }
+  @keyframes opacity {
+    from{
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
   .level_complite_star{
     display: flex;
+    justify-content: center
   }
   .star_level{
     width: 10vw;
     height: 15vw;
     margin: 0.5vw;
-    background: #fff;
+ 
     border-radius: 1vw;
+  }
+  .star_level > div {
+    margin: auto;
+    width: 8vw;
+    height: 9vW;
+    background: url(../img/stars.png) no-repeat;
+    background-size: 26vw;
+  }
+  .btnStar{
+    border-radius: 2vh;
+    background-color: #ffebcd95;
+    width: 10vw;
+    height: 3vw;
+    margin-top: 4vw;
+    background: linear-gradient(165deg,rgba(255, 215, 0, 0.7),#fff,rgba(255, 215, 0, 0.7)  ) ;
+    font-size: 2vw;
+    color: rgb(67, 32, 32);
   }

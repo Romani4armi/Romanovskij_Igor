@@ -2,7 +2,7 @@ var Example = Example || {};
     let s = false; //проверка на создание уровня 
 
 Example.slingshot = function() {
-    
+    levelsArr[0]=0
     if (s) document.getElementById('game').innerHTML = '' // если s === true значит уровень создан и мы его чистим
     document.getElementById('game').style.display = 'inline-block'
     const  Engine = Matter.Engine,
@@ -182,7 +182,7 @@ const vertBlock = {
                 Composite.remove(engine.world, [pig]);
                 counterPig--
                 if (!counterPig) {
-                    levelComplite()
+                    levelComplite(0)
                 }
             }
              
@@ -261,7 +261,7 @@ const vertBlock = {
         }
     })
     // счетчик количества птиц
-    let counterFly = 3;
+    let counterFly = 2;
     Events.on(engine, 'afterUpdate', () => {
         
         let distX = Math.abs(rock.position.x - flyPos.x);
@@ -269,7 +269,14 @@ const vertBlock = {
         if (isFired && distX<20 && distY < 20) {
             
             rock = Bodies.circle(170, 350,  20, rockOptions);
-            if (counterFly-->1) {Composite.add(engine.world, rock);}
+            levelsArr[0]++
+            if (counterFly-->0) {
+                Composite.add(engine.world, rock);
+                
+            } else {
+                levelsArr[0]++
+                levelComplite(0)
+            }
             
             elastic.bodyB = rock;
             isFired = false
