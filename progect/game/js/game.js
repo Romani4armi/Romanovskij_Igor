@@ -1,6 +1,6 @@
 var Example = Example || {};
     let s = false; //проверка на создание уровня 
-
+    levelCounterForButton = 1
 Example.slingshot0 = function() {
     levelsArr[0]=0
     if (s) document.getElementById('game').innerHTML = '' // если s === true значит уровень создан и мы его чистим
@@ -37,7 +37,7 @@ Example.slingshot0 = function() {
     });
     //document.querySelector('canvas').style.
     Render.run(render);
-console.log(render)
+
     // create runner
     const runner = Runner.create();
     Runner.run(runner, engine);
@@ -193,10 +193,7 @@ const vertBlock = {
    let  arr = [ground, block1,block2,block3,block4,block5,block6,pig1,pig2,sling1, rock, elastic,sling2];
     arr.push(block7);
     arr.push(block8,block9)
-    let soundBoom1 = new Audio;
-    soundBoom1.src = 'sound/pig.mp3';
-    let soundBoom2 = new Audio;
-    soundBoom2.src = 'sound/pig.mp3';
+    
    
     Composite.add(engine.world, arr );
     
@@ -243,7 +240,7 @@ const vertBlock = {
     Events.on(mouseConstraint, 'enddrag',(event)=>{
         if(event.body===rock){
             isFired = true
-            
+            birdsFly.play()
         }
     })
     // счетчик количества птиц
@@ -264,6 +261,8 @@ const vertBlock = {
                     if (!document.querySelector('.level_complite')){
                         levelsArr[0]++
                     levelComplite(0)
+                    
+                    document.getElementById('next_btn').style.display = 'none'
                     }
                     
                 },4000)
