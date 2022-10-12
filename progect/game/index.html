@@ -10,16 +10,32 @@
 <body>
 
 <div id='app'>
-      
+      <img src="img/starGold.png" alt="star">
     </div>
   
 </div>
 </div>
 <script src="js/matter.js"></script>
 <script src="js/game.js"></script>
+<script src="js/level1.js"></script>
 <script>
 
   "use strict";
+  const levelsArr = [0,0,0,0,0];
+  const loadStarForLevel = (level,star) => {
+
+if (levelsArr[level]<4){
+    return 0
+}
+if (levelsArr[i]<3) {
+    return 0
+}
+if (levelsArr[i]<2){
+    return 0
+}  
+
+
+}
   let levelStars = `
         <div class="level_complite_star">
             <div class="star_level"> <div id="star_1"></div> </div>
@@ -81,20 +97,38 @@
         
       </div>
     `
-    const startGame = () => `
+    const startGame = () => {
+       return `
  
         <div class="levels"> 
-              <button class="btn_level" onclick="startLevel(1)">1 level</button>
-              <button  class="btn_level" onclick="startLevel(2)">2 level</button>
-              <button class="btn_level"  onclick="startLevel(3)">3 level</button>
-              <button  class="btn_level" onclick="startLevel(4)">4 level</button>
-              <button class="btn_level"  onclick="startLevel(5)">5 level</button>
+              <button class="btn_level" onclick="startLevel(1)">1 
+                <img class="starGold" style="filter : brightness(${loadStarForLevel(0,1)})" id="starGold1"  src="img/starGold.png" alt="star">
+                <img class="starGold"  style="filter : brightness(${loadStarForLevel(0,1)})" id="starGold2" src="img/starGold.png" alt="star">
+                <img class="starGold"  style="filter : brightness(${loadStarForLevel(0,1)})" id="starGold3" src="img/starGold.png" alt="star">
+                </button>
+              <button  class="btn_level" onclick="startLevel(2)">2 
+                <img class="starGold" style="filter : brightness(${loadStarForLevel(1,1)})" id="starGold1"  src="img/starGold.png" alt="star">
+                <img class="starGold"  style="filter : brightness(${loadStarForLevel(1,1)})" id="starGold2" src="img/starGold.png" alt="star">
+                <img class="starGold"  style="filter : brightness(${loadStarForLevel(1,1)})" id="starGold3" src="img/starGold.png" alt="star">
+                </button>
+              <br>
+              <button class="btn_level"  onclick="startLevel(3)">3 
+                <img class="starGold" style="filter : brightness(${loadStarForLevel(2,1)})" id="starGold1"  src="img/starGold.png" alt="star">
+                <img class="starGold"  style="filter : brightness(${loadStarForLevel(2,1)})" id="starGold2" src="img/starGold.png" alt="star">
+                <img class="starGold"  style="filter : brightness(${loadStarForLevel(2,1)})" id="starGold3" src="img/starGold.png" alt="star">
+                </button>
+              <button  class="btn_level" onclick="startLevel(4)">4 
+                <img class="starGold" style="filter : brightness(${loadStarForLevel(3,1)})" id="starGold1"  src="img/starGold.png" alt="star">
+                <img class="starGold"  style="filter : brightness(${loadStarForLevel(3,1)})" id="starGold2" src="img/starGold.png" alt="star">
+                <img class="starGold"  style="filter : brightness(${loadStarForLevel(3,1)})" id="starGold3" src="img/starGold.png" alt="star">
+                </button>
         </div>
              
         <br>
         <button class="btnCanvas" onclick='switchToStartScreePage()'>Назад</button>
         
     `
+      }
     const gameFF = () => `
         
        
@@ -132,6 +166,7 @@
         break;
       case '#start-page':
         pageHTML+=startGame();
+       
         break;
       case '#settings-page':
         pageHTML+=settingF();
@@ -157,14 +192,17 @@
 
   const  switchToStartScreePage = () => {
     switchToState( { pagename:'start-screen' } );
+
   }
 
   const  switchToStartPage = ()  => {
     switchToState( { pagename:'start-page' } );
+    
   }
 
   const  switchToSettingsPage = () => {
     switchToState( { pagename:'settings-page' } );
+    
   }
 
   const  switchToRulePage = () => {
@@ -205,9 +243,9 @@
   const startLevel = (a) => {
     switchToGamePage();
     switch (a) {
-      case 1 : setTimeout(()=>{Example.slingshot()},10)
+      case 1 : setTimeout(()=>{Example.slingshot0()},10)
         break;
-      case 2 :  console.log('создай уровень')
+      case 2 :  setTimeout(()=>{Example.slingshot1()},10)
         break;
       case 3 : console.log('создай уровень')
         break;
@@ -219,11 +257,12 @@
     
     
   }
-  const levelsArr = [0,0,0,0,0];
+  
   const levelComplite = (a) =>{
         
         const game = document.getElementById('game');
         const addComplite = document.createElement('div');
+       
         game.appendChild(addComplite);
         addComplite.style.width = '50%';
         addComplite.style.height = '30vw';
@@ -255,11 +294,14 @@
   }
 
   window.addEventListener('keydown',e =>{
-    console.log(e.keyCode)
+
     if (e.keyCode=== 13 ) {
       document.querySelector('canvas').requestFullscreen()
     }
   })
+  
+ 
+  
  </script>
 </body>
 </html>

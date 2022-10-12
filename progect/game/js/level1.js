@@ -1,7 +1,7 @@
 var Example = Example || {};
-    let s = false; //проверка на создание уровня 
+     //проверка на создание уровня 
 
-Example.slingshot0 = function() {
+Example.slingshot1 = function() {
     levelsArr[0]=0
     if (s) document.getElementById('game').innerHTML = '' // если s === true значит уровень создан и мы его чистим
     document.getElementById('game').style.display = 'inline-block'
@@ -190,7 +190,7 @@ const vertBlock = {
 
         tick()
     }   
-   let  arr = [ground, block1,block2,block3,block4,block5,block6,pig1,pig2,sling1, rock, elastic,sling2];
+   let  arr = [ground, sling2];
     arr.push(block7);
     arr.push(block8,block9)
     let soundBoom1 = new Audio;
