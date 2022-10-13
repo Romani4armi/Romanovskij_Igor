@@ -160,7 +160,6 @@ setTimeout(()=>{checkedSoundFF()},0);
 break;
 case '#start-page':
 pageHTML+=startGame();
-
 break;
 case '#settings-page':
 pageHTML+=settingF();

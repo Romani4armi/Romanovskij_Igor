@@ -1,8 +1,8 @@
 var Example = Example || {};
-    let s = false; //проверка на создание уровня 
-    levelCounter = 1
-Example.slingshot0 = function() {
-    levelsArr[0]=0
+     //проверка на создание уровня 
+     levelCounter=4
+Example.slingshot3 = function() {
+    levelsArr[3]=0
     if (s) document.getElementById('game').innerHTML = '' // если s === true значит уровень создан и мы его чистим
     document.getElementById('game').style.display = 'inline-block'
     const  Engine = Matter.Engine,
@@ -28,7 +28,7 @@ Example.slingshot0 = function() {
         engine: engine,
         options: {
             wireframes : false,
-            background: 'img/background_1.png',
+            background: 'img/back5.png',
             width: 910,
             height: 600,
             showAngleIndicator: false    ,
@@ -43,15 +43,13 @@ Example.slingshot0 = function() {
     Runner.run(runner, engine);
     let flyPos = {
         x: 170,
-        y: 350
+        y: 450
     }
     // add bodies
-    let ground = Bodies.rectangle(450, 645, 900, 350, { isStatic: true, render: { 
-            sprite :{
-                 texture: 'img/image.png',
-                 xScale: 0.7,
-                yScale: 0.7,
-              
+    let ground = Bodies.rectangle(400, 635, 910, 100, { isStatic: true, render: { 
+        visible:false,    
+        sprite :{
+                
             }
 
      } }),
@@ -77,7 +75,7 @@ Example.slingshot0 = function() {
             }
         });
      
-    const sling1 = Bodies.rectangle(170,390,10,100,{
+    const sling1 = Bodies.rectangle(170,510,10,100,{
             isStatic : true,
             isSensor : true,
             render : {
@@ -89,7 +87,7 @@ Example.slingshot0 = function() {
             }
 
     })
-    const sling2 = Bodies.rectangle(142,350,1,1,{
+    const sling2 = Bodies.rectangle(142,470,1,1,{
         isStatic : true,
         isSensor : true,
         render : {
@@ -104,7 +102,7 @@ Example.slingshot0 = function() {
 const gorizBlock = {
     sprite: {
         texture: "img/beam.png",
-        xScale: 1.4,
+        xScale: 3,
         }
 }
 const vertBlock = {
@@ -114,14 +112,37 @@ const vertBlock = {
         yScale: 1.2
         }
 }
-   const block1 = Bodies.rectangle(600,400,20,100,{
+    const ballRender = {
+        sprite:{
+            texture: "img/stone.png",
+            xScale: 1.1,
+            yScale:1.1
+        }
+    }
+   const ball1 = Bodies.circle(580,550,40,{
+    render : ballRender
+   }) 
+   const ball2 = Bodies.circle(750,550,40,{
+    render : ballRender
+   }) 
+   const ball3 = Bodies.circle(620,190,40,{
+    render : ballRender
+   }) 
+   const block1 = Bodies.rectangle(750,490,50,100,{
+        render: {
+            sprite : {
+                texture: "img/stone2.png",
+                xScale: .6,
+                yScale: 1.2
+            }
+        }
+   })
+   const block2 = Bodies.rectangle(580,490,20,100,{
     render : vertBlock
    })
-   const block2 = Bodies.rectangle(680,400,20,100,{
-    render : vertBlock
-   })
-   const block3 = Bodies.rectangle(640,350,110,20,{
+   const block3 = Bodies.rectangle(670,510,250,20,{
     render : gorizBlock
+
    })
    const block4 = Bodies.rectangle(600,300,20,100,{
     render : vertBlock
@@ -129,20 +150,25 @@ const vertBlock = {
    const block5 = Bodies.rectangle(680,300,20,100,{
     render :vertBlock
    })
-   const block6 = Bodies.rectangle(640,250,110,20,{
+   const block6 = Bodies.rectangle(670,390,250,20,{
     render : gorizBlock
    })
-   const block7 = Bodies.rectangle(600,180,20,100,{
+   const block7 = Bodies.rectangle(600,330,20,101,{
     render : vertBlock
    })
-   const block8 = Bodies.rectangle(680,180,20,100,{
+   const block8 = Bodies.rectangle(680,330,20,100,{
     render : vertBlock
    })
-   const block9 = Bodies.rectangle(640,130,110,20,{
-    render : gorizBlock
+   const block9 = Bodies.rectangle(640,250,110,20,{
+    render : {
+        sprite: {
+            texture: "img/beam.png",
+            xScale: 1.4,
+        }
+    } 
    })
 
-   const pig1 = Bodies.circle(640,320,25,{ 
+   const pig1 = Bodies.circle(620,470,25,{ 
             density: 0.001 ,
             render: {
                 sprite: {
@@ -154,7 +180,7 @@ const vertBlock = {
             }
         })
        
-   const pig2 = Bodies.circle(640,220,25,{ 
+   const pig2 = Bodies.circle(640,300,25,{ 
             density: 0.001 ,
             render: {
                 sprite: {
@@ -182,7 +208,7 @@ const vertBlock = {
                 Composite.remove(engine.world, [pig]);
                 counterPig--
                 if (!counterPig) {
-                    levelComplite(0)
+                    levelComplite(3)
                 }
             }
              
@@ -190,7 +216,7 @@ const vertBlock = {
 
         tick()
     }   
-   let  arr = [ground, block1,block2,block3,block4,block5,block6,pig1,pig2,sling1, rock, elastic,sling2];
+   let  arr = [ground,pig1,pig2,sling1,ball1,ball2,block3,block1,block2,block6, ball3, rock, elastic,sling2];
     arr.push(block7);
     arr.push(block8,block9)
     
@@ -258,15 +284,15 @@ const vertBlock = {
         if (isFired && distX<20 && distY < 20) {
             
             rock = Bodies.circle(170, 350,  20, rockOptions);
-            levelsArr[0]++
+            levelsArr[3]++
             if (counterFly-->0) {
                 Composite.add(engine.world, rock);
                 
             } else {
                 setTimeout(()=>{
                     if (!document.querySelector('.level_complite')){
-                        levelsArr[0]++
-                    levelComplite(0)
+                        levelsArr[3]++
+                    levelComplite(3)
                     
                     document.getElementById('next_btn').style.display = 'none'
                     }

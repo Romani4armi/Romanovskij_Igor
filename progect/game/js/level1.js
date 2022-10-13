@@ -263,10 +263,16 @@ const vertBlock = {
     render.mouse = mouse;
     // бросаем птицу
     let isFired = false;
+    Events.on(mouseConstraint, 'startdrag',(event)=>{
+        if(event.body===rock){
+            
+            slingShot.play()
+        }
+    })
     Events.on(mouseConstraint, 'enddrag',(event)=>{
         if(event.body===rock){
             isFired = true
-            
+            birdsFly.play()
         }
     })
     // счетчик количества птиц
