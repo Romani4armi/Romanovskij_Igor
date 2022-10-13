@@ -28,7 +28,7 @@ Example.slingshot3 = function() {
         engine: engine,
         options: {
             wireframes : false,
-            background: 'img/back5.png',
+            background: 'img/back9.png',
             width: 910,
             height: 600,
             showAngleIndicator: false    ,
@@ -42,11 +42,11 @@ Example.slingshot3 = function() {
     const runner = Runner.create();
     Runner.run(runner, engine);
     let flyPos = {
-        x: 170,
-        y: 450
+        x: 130,
+        y: 340
     }
     // add bodies
-    let ground = Bodies.rectangle(400, 635, 910, 100, { isStatic: true, render: { 
+    let ground = Bodies.rectangle(400, 517, 910, 100, { isStatic: true, render: { 
         visible:false,    
         sprite :{
                 
@@ -58,43 +58,43 @@ Example.slingshot3 = function() {
             render: {
                 sprite: {
                     texture: "img/fly2.png",
-                        xScale: 1,
-                        yScale: 1,
+                        xScale: .7,
+                        yScale: .7,
                     
                     }
             }
         },
-        rock = Bodies.circle(flyPos.x, flyPos.y, 20, rockOptions),
+        rock = Bodies.circle(flyPos.x, flyPos.y, 14, rockOptions),
         anchor = flyPos,
         elastic = Constraint.create({ 
             pointA: anchor, 
             bodyB: rock, 
-            stiffness: 0.05,
+            stiffness: 0.01,
             render : {
                visible : false
             }
         });
      
-    const sling1 = Bodies.rectangle(170,510,10,100,{
+    const sling1 = Bodies.rectangle(130,390,10,100,{
             isStatic : true,
             isSensor : true,
             render : {
                 sprite : {
                     texture : 'img/sling.png',
-                    xScale: 1,
-                    yScale: .8,
+                    xScale: .7,
+                    yScale: .56,
                 }
             }
 
     })
-    const sling2 = Bodies.rectangle(142,470,1,1,{
+    const sling2 = Bodies.rectangle(110,362,1,1,{
         isStatic : true,
         isSensor : true,
         render : {
             sprite : {
                 texture : 'img/sling2.png',
-                xScale: 1,
-                yScale: .8,
+                xScale: 0.7,
+                yScale: .56,
             }
         }
 
@@ -108,7 +108,7 @@ const gorizBlock = {
 const vertBlock = {
     sprite: {
         texture: "img/column.png",
-        xScale: 1,
+        xScale: .8,
         yScale: 1.2
         }
 }
@@ -119,16 +119,16 @@ const vertBlock = {
             yScale:1.1
         }
     }
-   const ball1 = Bodies.circle(580,550,40,{
+   const ball1 = Bodies.circle(640,190,40,{
     render : ballRender
    }) 
-   const ball2 = Bodies.circle(750,550,40,{
+   const ball2 = Bodies.circle(750,70,40,{
     render : ballRender
    }) 
    const ball3 = Bodies.circle(620,190,40,{
     render : ballRender
    }) 
-   const block1 = Bodies.rectangle(750,490,50,100,{
+   const block1 = Bodies.rectangle(750,410,50,100,{
         render: {
             sprite : {
                 texture: "img/stone2.png",
@@ -137,57 +137,59 @@ const vertBlock = {
             }
         }
    })
-   const block2 = Bodies.rectangle(580,490,20,100,{
-    render : vertBlock
+   const block2 = Bodies.rectangle(620,410,15,100,{
+        render   : vertBlock
    })
-   const block3 = Bodies.rectangle(670,510,250,20,{
-    render : gorizBlock
-
-   })
-   const block4 = Bodies.rectangle(600,300,20,100,{
-    render : vertBlock
-   })
-   const block5 = Bodies.rectangle(680,300,20,100,{
-    render :vertBlock
+   const block3 = Bodies.rectangle(750,290,50,100,{
+        render: {
+            sprite : {
+                texture: "img/stone2.png",
+                xScale: .6,
+                yScale: 1.2
+            }
+        }
    })
    const block6 = Bodies.rectangle(670,390,250,20,{
-    render : gorizBlock
+        render : gorizBlock
+})
+   const block4 = Bodies.rectangle(580,290,15,100,{
+        render : vertBlock
    })
-   const block7 = Bodies.rectangle(600,330,20,101,{
-    render : vertBlock
+   const block10 = Bodies.rectangle(670,270,250,20,{
+        render : gorizBlock
+})
+   const block5 = Bodies.rectangle(580,170,15,100,{
+            render :vertBlock
    })
-   const block8 = Bodies.rectangle(680,330,20,100,{
-    render : vertBlock
+   
+   const block7 = Bodies.rectangle(780,170,15,100,{
+            render : vertBlock
    })
-   const block9 = Bodies.rectangle(640,250,110,20,{
-    render : {
-        sprite: {
-            texture: "img/beam.png",
-            xScale: 1.4,
-        }
-    } 
+   const block8 = Bodies.rectangle(680,170,15,100,{
+        render : vertBlock
+   })
+   const block9 = Bodies.rectangle(670,130,250,20,{
+            render : gorizBlock 
    })
 
-   const pig1 = Bodies.circle(620,470,25,{ 
+   const pig1 = Bodies.circle(640,310,25,{ 
             density: 0.001 ,
             render: {
                 sprite: {
                     texture: "img/pig.png",
-                      xScale: 0.07,
-                    yScale: 0.07,
-                    
+                    xScale: 0.065,
+                    yScale: 0.065,
                     }
             }
         })
        
-   const pig2 = Bodies.circle(640,300,25,{ 
+   const pig2 = Bodies.circle(720,190,25,{ 
             density: 0.001 ,
             render: {
                 sprite: {
                     texture: "img/pig.png",
-                      xScale: 0.07,
-                    yScale: 0.07,
-                    
+                    xScale: 0.065,
+                    yScale: 0.065,
                     }
             }
         })
@@ -216,10 +218,9 @@ const vertBlock = {
 
         tick()
     }   
-   let  arr = [ground,pig1,pig2,sling1,ball1,ball2,block3,block1,block2,block6, ball3, rock, elastic,sling2];
-    arr.push(block7);
-    arr.push(block8,block9)
-    
+   let  arr = [ground, sling1,block1,block2,block6,block3,rock, elastic,sling2,block4,block10,block5,
+        block7,block8,block9,pig1,pig2,ball1,ball2];
+  
    
     Composite.add(engine.world, arr );
     
@@ -281,9 +282,9 @@ const vertBlock = {
         
         let distX = Math.abs(rock.position.x - flyPos.x);
         let distY = Math.abs(rock.position.y - flyPos.y)
-        if (isFired && distX<20 && distY < 20) {
+        if (isFired && distX<14 && distY < 14) {
             
-            rock = Bodies.circle(170, 350,  20, rockOptions);
+            rock = Bodies.circle(flyPos.x, flyPos.y,  14, rockOptions);
             levelsArr[3]++
             if (counterFly-->0) {
                 Composite.add(engine.world, rock);

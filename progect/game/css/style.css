@@ -262,3 +262,7 @@ li {
     padding: 0px;
     margin: 0px;
   }
+  .btnName{
+    text-align: center;
+    color: #333;
+  }

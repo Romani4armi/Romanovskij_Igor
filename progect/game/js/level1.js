@@ -283,7 +283,7 @@ const vertBlock = {
         let distY = Math.abs(rock.position.y - flyPos.y)
         if (isFired && distX<20 && distY < 20) {
             
-            rock = Bodies.circle(170, 350,  20, rockOptions);
+            rock = Bodies.circle(flyPos.x, flyPos.y,  20, rockOptions);
             levelsArr[1]++
             if (counterFly-->0) {
                 Composite.add(engine.world, rock);

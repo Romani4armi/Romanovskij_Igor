@@ -42,10 +42,13 @@ const  startScreen = () => `
       
       <input class="btn" type=button value='Начать игру' onclick='switchToStartPage()'>
       
+      <input class="btn" type=button value='Сохранить ' onclick='saveGame()'>
+      
       <input class="btn" type=button value='Настройки' onclick='switchToSettingsPage()'>
       
       <input class="btn" type=button value='Правила' onclick='switchToRulePage()'>
       
+
       <div class="checkbox_contejner"> 
         <label class="checkbox style-e">
             <input id="soundCheck" onclick="soundMute(); checkedSound = !checkedSound" type="checkbox"/>
@@ -93,26 +96,30 @@ const startGame = () => {
 return `
 
 <div class="levels"> 
-      <button class="btn_level" onclick="startLevel(0,${levelCounter =1})">1 
+      <button class="btn_level" onclick="startLevel(0,${levelCounter =1})">
         <img class="starGold" style="filter : brightness(${loadStarForLevel(0,1)})" id="starGold1"  src="img/starGold.png" alt="star">
         <img class="starGold"  style="filter : brightness(${loadStarForLevel(0,2)})" id="starGold2" src="img/starGold.png" alt="star">
         <img class="starGold"  style="filter : brightness(${loadStarForLevel(0,3)})" id="starGold3" src="img/starGold.png" alt="star">
+        <br> 1
         </button>
-      <button  class="btn_level" onclick="startLevel(0,${levelCounter = 2})">2 
+      <button  class="btn_level" onclick="startLevel(0,${levelCounter = 2})">
         <img class="starGold" style="filter : brightness(${loadStarForLevel(1,1)})" id="starGold1"  src="img/starGold.png" alt="star">
         <img class="starGold"  style="filter : brightness(${loadStarForLevel(1,2)})" id="starGold2" src="img/starGold.png" alt="star">
         <img class="starGold"  style="filter : brightness(${loadStarForLevel(1,3)})" id="starGold3" src="img/starGold.png" alt="star">
+        <br> 2
         </button>
       <br>
-      <button class="btn_level"  onclick="startLevel(0,${levelCounter =3})">3 
+      <button class="btn_level"  onclick="startLevel(0,${levelCounter =3})">
         <img class="starGold" style="filter : brightness(${loadStarForLevel(2,1)})" id="starGold1"  src="img/starGold.png" alt="star">
         <img class="starGold"  style="filter : brightness(${loadStarForLevel(2,2)})" id="starGold2" src="img/starGold.png" alt="star">
         <img class="starGold"  style="filter : brightness(${loadStarForLevel(2,3)})" id="starGold3" src="img/starGold.png" alt="star">
+        <br> 3
         </button>
-      <button  class="btn_level" onclick="startLevel(0,${levelCounter =4})">4 
+      <button  class="btn_level" onclick="startLevel(0,${levelCounter =4})">
         <img class="starGold" style="filter : brightness(${loadStarForLevel(3,1)})" id="starGold1"  src="img/starGold.png" alt="star">
         <img class="starGold"  style="filter : brightness(${loadStarForLevel(3,2)})" id="starGold2" src="img/starGold.png" alt="star">
         <img class="starGold"  style="filter : brightness(${loadStarForLevel(3,3)})" id="starGold3" src="img/starGold.png" alt="star">
+        <br> 4
         </button>
 </div>
      
@@ -121,6 +128,16 @@ return `
 
 `
 }
+const registrFF = () => `
+<div class="conteiner">
+    <div class="btns">
+        <input class="btn btnName" type=text placeholder="введите имя" id="registName">
+        
+        <input class="btn" type=button value='Назад' onclick='switchToStartScreePage()'>
+</div>
+
+</div>
+` 
 const gameFF = () => `
 
 
@@ -157,6 +174,7 @@ switch ( URLHash ) {
 case '#start-screen': 
 pageHTML+=startScreen();
 setTimeout(()=>{checkedSoundFF()},0);
+
 break;
 case '#start-page':
 pageHTML+=startGame();
@@ -173,6 +191,9 @@ setTimeout(()=>{checkedSoundFF()},0);
 break;
 case '#gameFF':
 pageHTML+=gameFF()
+break;
+case '#registr': 
+pageHTML += registrFF()
 break;
 
 }
@@ -215,5 +236,7 @@ setTimeout(()=>{
 const switchToGamePage = () => {
 switchToState( { pagename:'gameFF' } )
 }
-
+const switchToRegPage = () => {
+    switchToState( { pagename:'registr' } )
+}
 switchToStateFromURLHash();
