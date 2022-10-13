@@ -1,6 +1,6 @@
 var Example = Example || {};
     let s = false; //проверка на создание уровня 
-    levelCounterForButton = 1
+    levelCounter = 1
 Example.slingshot0 = function() {
     levelsArr[0]=0
     if (s) document.getElementById('game').innerHTML = '' // если s === true значит уровень создан и мы его чистим

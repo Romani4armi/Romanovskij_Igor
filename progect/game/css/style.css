@@ -50,7 +50,7 @@ li {
     display: flex;
     justify-content: center;
     width: 40vw;
-    height: 12vh;
+    height: 5vh;
     transform: scale(2);
 }
 .checkbox.style-e {
@@ -214,4 +214,51 @@ li {
   .starGold{
     width: 2vw;
     height: 2vw;
+  }
+  #soundRange{
+    margin: 4vw;
+    width: 40vw;
+
+  }
+  input[type=range]  {
+    width: 200px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+    overflow: hidden;
+    height: 3vw;
+    border-radius : 2vw;
+  }
+
+  input[type=range]::-webkit-slider-runnable-track {
+    height: 3vw;
+    background-color: red;
+  }
+
+  input[type=range]::-webkit-slider-thumb {
+    background: white;
+    cursor: pointer;
+    width:4vw;
+    height: 4vw;
+    -webkit-appearance: none;
+    margin-top: -1vw;
+    box-shadow: -200px  0 0 200px  green;
+
+  }
+
+  input[type=range]::-moz-range-track {
+      height: 3vw;
+      background-color: green;
+  }
+
+
+ input[type=range]::-moz-range-thumb {
+    background: #ecf0f1;
+    cursor: pointer;
+    height: 3vw;
+    border-radius:2vw;
+    box-shadow: -40vw  0px 0px 40vw   #43e5f7;
+    padding: 0px;
+    margin: 0px;
   }

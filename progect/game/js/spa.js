@@ -1,3 +1,29 @@
+let levelCounter = 0;
+  let levelsArr = [];
+  if (localStorage.levelsArr){
+    levelsArr = localStorage.levelsArr.split(',')
+  } else {
+    levelsArr = [0,0,0,0,0];
+  }
+   
+const loadStarForLevel = (level,star) => {
+
+    const lev = parseInt(levelsArr[level])
+    if (lev===0) return 0
+    if (lev<=3 && star === 1){
+        return 1
+    }
+    if (lev<=2 && star === 2) {
+        return 1
+    }
+    if (lev<=1 && star === 3){
+        return 1
+    }  
+
+    return 0
+}
+
+
 let levelStars = `
 <div class="level_complite_star">
     <div class="star_level"> <div id="star_1"></div> </div>
@@ -22,7 +48,7 @@ const  startScreen = () => `
       
       <div class="checkbox_contejner"> 
         <label class="checkbox style-e">
-            <input id="soundCheck" type="checkbox"/>
+            <input id="soundCheck" onclick="soundMute(); checkedSound = !checkedSound" type="checkbox"/>
             <div class="checkbox__checkmark"></div>
             <div class="checkbox__body"></div>
         </label>
@@ -31,6 +57,10 @@ const  startScreen = () => `
   </div>
 
 </div>
+<script type="text/javascript"> 
+         
+        console.log('afasfasdf)
+</script>
 `
 const settingF = () => `
 <div class="conteiner">
@@ -63,26 +93,26 @@ const startGame = () => {
 return `
 
 <div class="levels"> 
-      <button class="btn_level" onclick="startLevel(${levelCounter =1})">1 
+      <button class="btn_level" onclick="startLevel(0,${levelCounter =1})">1 
         <img class="starGold" style="filter : brightness(${loadStarForLevel(0,1)})" id="starGold1"  src="img/starGold.png" alt="star">
-        <img class="starGold"  style="filter : brightness(${loadStarForLevel(0,1)})" id="starGold2" src="img/starGold.png" alt="star">
-        <img class="starGold"  style="filter : brightness(${loadStarForLevel(0,1)})" id="starGold3" src="img/starGold.png" alt="star">
+        <img class="starGold"  style="filter : brightness(${loadStarForLevel(0,2)})" id="starGold2" src="img/starGold.png" alt="star">
+        <img class="starGold"  style="filter : brightness(${loadStarForLevel(0,3)})" id="starGold3" src="img/starGold.png" alt="star">
         </button>
-      <button  class="btn_level" onclick="startLevel(${levelCounter =2})">2 
+      <button  class="btn_level" onclick="startLevel(0,${levelCounter = 2})">2 
         <img class="starGold" style="filter : brightness(${loadStarForLevel(1,1)})" id="starGold1"  src="img/starGold.png" alt="star">
-        <img class="starGold"  style="filter : brightness(${loadStarForLevel(1,1)})" id="starGold2" src="img/starGold.png" alt="star">
-        <img class="starGold"  style="filter : brightness(${loadStarForLevel(1,1)})" id="starGold3" src="img/starGold.png" alt="star">
+        <img class="starGold"  style="filter : brightness(${loadStarForLevel(1,2)})" id="starGold2" src="img/starGold.png" alt="star">
+        <img class="starGold"  style="filter : brightness(${loadStarForLevel(1,3)})" id="starGold3" src="img/starGold.png" alt="star">
         </button>
       <br>
-      <button class="btn_level"  onclick="startLevel(${levelCounter =3})">3 
+      <button class="btn_level"  onclick="startLevel(0,${levelCounter =3})">3 
         <img class="starGold" style="filter : brightness(${loadStarForLevel(2,1)})" id="starGold1"  src="img/starGold.png" alt="star">
-        <img class="starGold"  style="filter : brightness(${loadStarForLevel(2,1)})" id="starGold2" src="img/starGold.png" alt="star">
-        <img class="starGold"  style="filter : brightness(${loadStarForLevel(2,1)})" id="starGold3" src="img/starGold.png" alt="star">
+        <img class="starGold"  style="filter : brightness(${loadStarForLevel(2,2)})" id="starGold2" src="img/starGold.png" alt="star">
+        <img class="starGold"  style="filter : brightness(${loadStarForLevel(2,3)})" id="starGold3" src="img/starGold.png" alt="star">
         </button>
-      <button  class="btn_level" onclick="startLevel(${levelCounter =4})">4 
+      <button  class="btn_level" onclick="startLevel(0,${levelCounter =4})">4 
         <img class="starGold" style="filter : brightness(${loadStarForLevel(3,1)})" id="starGold1"  src="img/starGold.png" alt="star">
-        <img class="starGold"  style="filter : brightness(${loadStarForLevel(3,1)})" id="starGold2" src="img/starGold.png" alt="star">
-        <img class="starGold"  style="filter : brightness(${loadStarForLevel(3,1)})" id="starGold3" src="img/starGold.png" alt="star">
+        <img class="starGold"  style="filter : brightness(${loadStarForLevel(3,2)})" id="starGold2" src="img/starGold.png" alt="star">
+        <img class="starGold"  style="filter : brightness(${loadStarForLevel(3,3)})" id="starGold3" src="img/starGold.png" alt="star">
         </button>
 </div>
      
@@ -101,12 +131,13 @@ const soundPage = () => `
   <div class="btns">
     <div class="checkbox_contejner"> 
         <label class="checkbox style-e">
-            <input id="soundCheck" type="checkbox"/>
+            <input id="soundCheck" onclick="soundMute(); checkedSound = !checkedSound " type="checkbox"/>
             <div class="checkbox__checkmark"></div>
             <div class="checkbox__body"></div>
         </label>
         <div class="soundCheckBox"> Звук </div>
       </div>
+      <input type="range" id="soundRange" min="0" max="100">
       <input class="btn" type=button value='Назад' onclick='switchToSettingsPage()'>
       
   </div>
@@ -125,6 +156,7 @@ let pageHTML = '';
 switch ( URLHash ) {
 case '#start-screen': 
 pageHTML+=startScreen();
+setTimeout(()=>{checkedSoundFF()},0);
 break;
 case '#start-page':
 pageHTML+=startGame();
@@ -137,7 +169,8 @@ case '#rule-page':
 pageHTML+=ruleF();
 break;  
 case '#sound-page':
-pageHTML+=soundPage()
+pageHTML+=soundPage();
+setTimeout(()=>{checkedSoundFF()},0);
 break;
 case '#gameFF':
 pageHTML+=gameFF()
@@ -155,6 +188,7 @@ location.hash=newState.pagename;
 const  switchToStartScreePage = () => {
 switchToState( { pagename:'start-screen' } );
 
+
 }
 
 const  switchToStartPage = ()  => {
@@ -169,10 +203,15 @@ switchToState( { pagename:'settings-page' } );
 
 const  switchToRulePage = () => {
 switchToState( { pagename:'rule-page' } );
+document.getElementById('soundCheck').checked = checkedSound;
 }
 
 const switchToSoundPage = () => {
 switchToState( { pagename: 'sound-page' } )
+setTimeout(()=>{
+   rangeSoundFF() 
+},10)
+
 }
 const switchToGamePage = () => {
 switchToState( { pagename:'gameFF' } )

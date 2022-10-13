@@ -15,31 +15,18 @@
   
 </div>
 </div>
+<script src="https://fe.it-academy.by/JQ/jquery.js"></script>
+<script src="js/spa.js"></script>
 <script src="js/sound.js"></script>
 <script src="js/matter.js"></script>
-<script src="js/game.js"></script>
+<script src="js/game.js" ></script>
 <script src="js/level1.js"></script>
-<script src="js/spa.js"></script>
+
 <script>
 
-  "use strict";
-  let levelCounter = 0;
-  const levelsArr = [0,0,0,0,0];
-  const loadStarForLevel = (level,star) => {
-
-if (levelsArr[level]<4){
-    return 0
-}
-if (levelsArr[level]<3) {
-    return 0
-}
-if (levelsArr[level ]<2){
-    return 0
-}  
-}
+ 
   
- 
- 
+  
   const backgroundBody = () => {    
     const   backGr = document.getElementById('backgr') ;
     if (backGr.style.display === 'block') {
@@ -61,8 +48,8 @@ if (levelsArr[level ]<2){
     }
     
   }
-  const soundCheck = document.getElementById('soundCheck')
-  const startLevel = (a) => {
+  
+  const startLevel = (a,b) => {
     switchToGamePage();
     switch (a) {
       case 0 : levelCounter 
@@ -71,6 +58,7 @@ if (levelsArr[level ]<2){
       case 1 :  levelCounter++
         break;
     }
+    b?levelCounter=b:b;
     switch (levelCounter){
       case 1 :  setTimeout(()=>{Example.slingshot0()},10)
         break;
@@ -116,7 +104,7 @@ if (levelsArr[level ]<2){
             if (levelsArr[a]<2){
                 setTimeout(()=>{star3.style.backgroundPosition = '-18vw -1vw'},2500)          
             }  
-        
+        localStorage.levelsArr = levelsArr.join(',')
       
   }
 
@@ -128,7 +116,7 @@ if (levelsArr[level ]<2){
   })
   
 
-
+  
  
   
  </script>

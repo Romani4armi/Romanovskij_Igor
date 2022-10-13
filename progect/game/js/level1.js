@@ -1,8 +1,8 @@
 var Example = Example || {};
      //проверка на создание уровня 
-     levelCounterForButton=2
+     levelCounter=2
 Example.slingshot1 = function() {
-    levelsArr[0]=0
+    levelsArr[1]=0
     if (s) document.getElementById('game').innerHTML = '' // если s === true значит уровень создан и мы его чистим
     document.getElementById('game').style.display = 'inline-block'
     const  Engine = Matter.Engine,
@@ -208,7 +208,7 @@ const vertBlock = {
                 Composite.remove(engine.world, [pig]);
                 counterPig--
                 if (!counterPig) {
-                    levelComplite(0)
+                    levelComplite(1)
                 }
             }
              
@@ -278,15 +278,15 @@ const vertBlock = {
         if (isFired && distX<20 && distY < 20) {
             
             rock = Bodies.circle(170, 350,  20, rockOptions);
-            levelsArr[0]++
+            levelsArr[1]++
             if (counterFly-->0) {
                 Composite.add(engine.world, rock);
                 
             } else {
                 setTimeout(()=>{
                     if (!document.querySelector('.level_complite')){
-                        levelsArr[0]++
-                    levelComplite(0)
+                        levelsArr[1]++
+                    levelComplite(1)
                     
                     document.getElementById('next_btn').style.display = 'none'
                     }
