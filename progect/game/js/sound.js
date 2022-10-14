@@ -15,7 +15,10 @@ let checkedSound = false;
  
 const soundMute = () => {
     soudsArr.forEach(i => {
-        i.muted = !document.getElementById('soundCheck').checked;
+        if(document.getElementById('soundCheck')){
+            i.muted = !document.getElementById('soundCheck').checked;
+        }
+        
         
     })
 }

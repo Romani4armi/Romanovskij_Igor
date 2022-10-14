@@ -42,7 +42,7 @@ const  startScreen = () => `
       
       <input class="btn" type=button value='Начать игру' onclick='switchToStartPage()'>
       
-      <input class="btn" type=button value='Сохранить ' onclick='saveGame()'>
+      <input class="btn" type=button value='Сохранить ' onclick='switchToRegPage    ()'>
       
       <input class="btn" type=button value='Настройки' onclick='switchToSettingsPage()'>
       
@@ -131,6 +131,7 @@ return `
 const registrFF = () => `
 <div class="conteiner">
     <div class="btns">
+        <div class="btnReg" id="RulsReg"> введите свое имя для загрузки прогресса в игре, если вы новый игрок, то вы будете зарегестрированны  </div>
         <input class="btn btnName" type=text placeholder="введите имя" id="registName">
         
         <input class="btn" type=button value='Назад' onclick='switchToStartScreePage()'>
@@ -238,5 +239,14 @@ switchToState( { pagename:'gameFF' } )
 }
 const switchToRegPage = () => {
     switchToState( { pagename:'registr' } )
+    setTimeout(()=>{
+        const player = document.getElementById('registName');
+
+player.addEventListener('blur',()=>{
+    userName =  player.value 
+    
+    storeInfo()
+})
+    },10)
 }
 switchToStateFromURLHash();

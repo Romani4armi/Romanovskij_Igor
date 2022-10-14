@@ -266,3 +266,12 @@ li {
     text-align: center;
     color: #333;
   }
+  .btnReg{
+    width: 70vw;
+    padding: 1vw;
+    margin-top: 4vh;
+    font-size: 4vW;
+    background-color: #ffebcd95;
+    border-radius: 2vh;
+    color: rgb(30, 23, 23);
+  }

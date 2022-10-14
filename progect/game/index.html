@@ -79,7 +79,7 @@
         
         const game = document.getElementById('game');
         const addComplite = document.createElement('div');
-       
+        addComplite.id = 'exitGame'
         game.appendChild(addComplite);
         addComplite.style.width = '50%';
         addComplite.style.height = '30vw';
@@ -122,6 +122,61 @@
 //         return confirm("Do you really want to close?") 
 //     }
 // )
+
+
+// работа с сервером
+
+window.addEventListener('keydown',e => {
+    if (!document.getElementById('exitGame')){
+      if (e.keyCode == 27 && window.location.hash == '#gameFF') {
+        levelsArr[levelCounter-1]=4
+        levelComplite(0)       
+      }
+    }
+})
+const url="https://fe.it-academy.by/AjaxStringStorage2.php";
+let userName ;
+let serverName = 'Angry_birds_'
+
+function storeInfo() {
+    $.ajax( {
+            url, type : 'POST', cache : false, dataType:'json',
+            data : { f : 'INSERT', n : (serverName+userName), v : JSON.stringify(levelsArr) },
+            success : insertReady, error : errorHandler
+        }
+    );
+    
+}
+function insertReady (data) {
+    if (data.result === ''){
+      lockGetReady()
+    } else {
+      levelsArr = [0,0,0,0,0]
+      document.getElementById('RulsReg').innerHTML = 'вы успешно зарегистрированны'
+    }
+    
+}
+
+function errorHandler(){
+  document.getElementById('RulsReg').innerHTML = 'произошел сбой, попробуйте позже'
+}
+function lockGetReady(){
+
+    $.ajax( {
+            url, type : 'POST', cache : false, dataType:'json',
+            data : { f : 'READ', n : (serverName+userName)},
+            success : GetData, error : errorData
+        }
+    );
+}
+function GetData (data){
+  document.getElementById('RulsReg').innerHTML = 'Ваши данные успешно получены'
+  levelsArr = JSON.parse(data.result)
+}
+function errorData () {
+  document.getElementById('RulsReg').innerHTML = 'произошел сбой, попробуйте позже'
+
+}
  </script>
 </body>
 </html>
