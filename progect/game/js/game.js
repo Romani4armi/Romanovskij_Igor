@@ -76,6 +76,7 @@ Example.slingshot0 = function() {
                visible : false
             }
         });
+            
      
     const sling1 = Bodies.rectangle(170,390,10,100,{
             isStatic : true,

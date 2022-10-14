@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <title>Document</title>
+    <title>Angry_birds</title>
 </head>
 <body>
 
@@ -116,12 +116,13 @@
       document.querySelector('canvas').requestFullscreen()
     }
   })
-//   jQuery(window).bind(
-//     "beforeunload", 
-//     function() { 
-//         return confirm("Do you really want to close?") 
-//     }
-// )
+  jQuery(window).bind(
+    "beforeunload", 
+    function() { 
+        
+        return confirm("Do you really want to close?") 
+    }
+)
 
 
 // работа с сервером
