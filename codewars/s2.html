@@ -8,30 +8,24 @@
 </head>
 <body>
     <script>
-
+    
+  for (let i=0; i<numbers.length-1;i++){       
+       while(numbers[i]>numbers[i+1]){
+        numbers[i]-=numbers[i+1]
+       }
+       while(numbers[i]<numbers[i+1]){
+        numbers[i+1]-=numbers[i]         
+       }
+      } 
+   return numbers[numbers.length-1]*numbers.length  
 
 function solution(numbers) {  
-    while(true){
-        let n=0;
-    for(let i=1;i<numbers.length;i++){
-        if (numbers[i-1]>numbers[i]) {
-            numbers[i-1]-=numbers[i]
-            n++
-        }
-        if (numbers[i-1]<numbers[i]) {
-            numbers[i]-=numbers[i-1]
-            n++
-        }        
-    };
-    if (n===0) break
-    }
-    numbers.sort((a,b)=>a-b)
-    return numbers[0]*numbers.length  
+  
 }
    
    
 
-  console.log(solution([6,9,23]),9)
+  console.log(solution([146689, 207936, 163216, 248004, 29929, 147456, 10000, 151321, 27225, 192721, 74529]),9)
     </script>
 </body>
 </html>

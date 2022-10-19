@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=UTF-8>
+    <title>drag&amp;drop</title>
+    <style>
+       div{
+        position: absolute;
+       } 
+    </style>
+  </head>
+  <body style='min-height: 100vh'>
+<img src='http://fe.it-academy.by/Sites/0000007/sax.jpg'>
+<img src='http://fe.it-academy.by/Sites/0000007/Yin_and_Yang.png' width=100>
+<img src='http://fe.it-academy.by/Sites/0000007/Man-and-woman.png' width=150>
+<img src='http://fe.it-academy.by/Sites/0000007/No_smoking.png' style='padding-left: 50px'>
+
+<script>
+  const imgArr = document.querySelectorAll('img');
+
+    for (let i=imgArr.length-1; i>=0 ;i--){ 
+
+        imgArr[i].style.left = imgArr[i].offsetLeft+'px';
+        imgArr[i].style.top = imgArr[i].offsetTop+'px';
+        imgArr[i].style.position= 'absolute';
+        let x;
+        let y;
+        imgArr[i].addEventListener('dragstart',event => {
+            x=event.offsetX;
+            y=event.offsetY;
+        })
+        imgArr[i].addEventListener('drag',event => {
+            imgArr[i].style.top =  (event.pageY-y)+'px';
+            imgArr[i].style.left = (event.pageX-x) + 'px'
+        })
+
+    }
+
+</script>
+
+  </body>
+</html>

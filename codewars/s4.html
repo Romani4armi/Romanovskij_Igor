@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+ function properFractions(n){
+    const n1=n;
+    if (n===1) return 0
+    const arr=[];
+    let k=2;
+    while (n!=1){
+        if (n%k===0){
+            while (n%k===0){
+                n/=k
+            }
+            arr.push(k)
+
+        }
+        
+        k++
+    }    
+    n=n1;
+    let sum=0;
+    for (let i=0;i<arr.length;i++){
+        sum+=n/arr[i]
+        console.log(sum)
+    }
+    
+ return n- sum 
+        }
+      console.log(properFractions( 7300880),2900864);
+    //console.log(properFractions(347),1);
+    //   console.log(properFractions(5),4);
+    //   console.log(properFractions(15),8);
+    //   console.log(properFractions(25),20);
+
+    </script>
+</body>
+</html>
